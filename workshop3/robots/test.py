@@ -50,81 +50,83 @@ class Grid(object):
         return self.grid
 
 class Game(object):
-    def __init__(self, grid, listCar):
-        self.grid = grid
+    def __init__(self, playboard, listCar):
+        self.playboard = playboard
         self.listOfCar = []
 
     def add_car(self, car):
         self.listOfCar.append(car)
 
     def isMovable(self):
-        # red = self.listOfCar[0]
-        # redx = red.getX()
-        # while redx != 4:
-        #     for i in range(0, len(self.listOfCar)):
-        #         current = self.listOfCar[i]
-        #         x = current.getX()
-        #         y = current.getY()
-        #         if current.orientation == "H":
-        #             if current.length == 2:
-        #                 if self.grid.grid[x+2, y] == 0:
-        #                     self.grid.grid[x+2, y] = current.idcar
-        #                     self.grid.grid[x,y] = 0
-        #             elif current.length == 3:
-        #                 if self.grid.grid[x+3,y] == 0:
-        #                     self.grid.grid[x+3,y] = current.idcar
-        #                     self.grid.grid[x,y] = 0
-        #     print self.grid.grid.T
-        #     if redx == 4:
-        #         break
-
-
-        # while self.grid.grid[5,2] != 1 and self.grid.grid[4,2] != 1:
+        moves = 0
+        while self.playboard.grid[5, 2] != 1:
             for j in range(0, len(self.listOfCar)):
                 current = self.listOfCar[j]
                 x = current.getX()
                 y = current.getY()
                 if current.orientation == "H":
                     if current.length == 2:
-                        # x_left = x - 1
-                        # x_right = x + 2
-                        if self.grid.grid[x + 2, y] == 0:
-                            self.grid.grid[x + 2, y] = current.idcar
-                            self.grid.grid[x,y] = 0
-                        elif self.grid.grid[x - 1, y] == 0:
-                            self.grid.grid[x - 1, y] = current.idcar
-                            self.grid.grid[x + 1, y] = 0
+                        if x < 4:
+                            if self.playboard.grid[x + 2, y] == 0:
+                                self.playboard.grid[x + 2, y] = current.idcar
+                                self.playboard.grid[x,y] = 0
+                                current.x = x + 1
+                                moves += 1
+                        elif x > 0:
+                            if self.playboard.grid[x - 1, y] == 0:
+                                self.playboard.grid[x - 1, y] = current.idcar
+                                self.playboard.grid[x + 1, y] = 0
+                                current.x = x - 1
+                                moves += 1
                     elif current.length == 3:
-                        # x_left = x - 1
-                        # x_right = x + 2
-                        if self.grid.grid[x + 3, y] == 0:
-                            self.grid.grid[x + 3, y] = current.idcar
-                            self.grid.grid[x,y] = 0
-                        elif self.grid.grid[x - 1, y] == 0:
-                            self.grid.grid[x - 1, y] = current.idcar
-                            self.grid.grid[x + 2, y] = 0
+                        if x < 3:
+                            if self.playboard.grid[x + 3, y] == 0:
+                                self.playboard.grid[x + 3, y] = current.idcar
+                                self.playboard.grid[x,y] = 0
+                                current.x = x + 1
+                                moves += 1
+                        elif x > 0:
+                            if self.playboard.grid[x - 1, y] == 0:
+                                self.playboard.grid[x - 1, y] = current.idcar
+                                self.playboard.grid[x + 2, y] = 0
+                                current.x = x - 1
+                                moves += 1
                 elif current.orientation == "V":
                     if current.length == 2:
-                        # y_upper = y - 1
-                        # y_lower = y + 2
-                        if self.grid.grid[x, y + 2] == 0:
-                            self.grid.grid[x, y + 2] = current.idcar
-                            self.grid.grid[x,y] = 0
-                        elif self.grid.grid[x, y - 1] == 0:
-                            self.grid.grid[x, y - 1] = current.idcar
-                            self.grid.grid[x, y + 1] = 0
+                        if y < 4:
+                            if self.playboard.grid[x, y + 2] == 0:
+                                self.playboard.grid[x, y + 2] = current.idcar
+                                self.playboard.grid[x,y] = 0
+                                current.y = y + 1
+                                moves += 1
+                        elif y > 0:
+                            if self.playboard.grid[x, y - 1] == 0:
+                                self.playboard.grid[x, y - 1] = current.idcar
+                                self.playboard.grid[x, y + 1] = 0
+                                current.y = y - 1
+                                moves += 1
                     elif current.length == 3:
-                        # y_upper = y - 1
-                        # y_lower = y + 3
-                        if self.grid.grid[x, y + 3] == 0:
-                            self.grid.grid[x, y + 3] = current.idcar
-                            self.grid.grid[x,y] = 0
-                        elif self.grid.grid[x, y - 1] == 0:
-                            self.grid.grid[x, y - 1] = current.idcar
-                            self.grid.grid[x,y + 2] = 0
-                print self.grid.grid.T
-        # print self.grid.grid.T
-        # print "Congrats!"
+                        if y < 3:
+                            if self.playboard.grid[x, y + 3] == 0:
+                                self.playboard.grid[x, y + 3] = current.idcar
+                                self.playboard.grid[x,y] = 0
+                                current.y = y + 1
+                                moves += 1
+                        elif y > 0:
+                            if self.playboard.grid[x, y - 1] == 0:
+                                self.playboard.grid[x, y - 1] = current.idcar
+                                self.playboard.grid[x,y + 2] = 0
+                                current.y = y - 1
+                                moves += 1
+                print self.playboard.grid.T
+                print moves
+                print "\n"
+                # if self.playboard.grid[5,2] == 1:
+                #     print "Congrats!"
+                #     break
+        print self.playboard.grid.T
+        print "Congrats!"
+
 
 
 
@@ -148,15 +150,13 @@ car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
 
-listcar = [car1, car2, car3]
+listcar = [car1, car2, car3, car4, car5]
 board = Grid(6)
 for i in listcar:
     board.fillTiles(i)
 print board.grid.T
+print "\n"
 game = Game(board, listcar)
 for i in listcar:
     game.add_car(i)
 game.isMovable()
-print board.grid[5,2]
-print board.grid[4,2]
-print board.grid[2,1]
