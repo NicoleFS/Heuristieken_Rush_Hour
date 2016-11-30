@@ -136,29 +136,8 @@ class Game(object):
         # update x coordinate
         car.x = x + 1
         # add 1 (move) to counter moves
-        self.moves += 1
-        # add state of board to archive
-        # for i in board.grid.T:
-        #     for j in i:
-        #         x = int(j)
-        #         self.listStatename.append(x)
-        # self.boardStates = int(''.join(map(str, self.listStatename)))
-        # self.boardStates = "%036d" % (self.boardStates)  # 36 komt van 2x dimension
-        # self.listStatename.add(self.boardStates)
+        # self.moves += 1
 
-
-
-
-        # if len(self.boardStates) == 0:
-        #     for i in board.grid.T:
-        #         for j in i:
-        #             print j
-        #             self.boardStates = self.
-        #     self.boardStates.update({self.playboard.grid})
-        #     print "Set is leeg"
-        # else:
-        #     self.boardStates.add(self.playboard.grid)
-        #     print "Set is gevuld"
 
 
     def moveLeft(self, car):
@@ -180,7 +159,7 @@ class Game(object):
         # update x coordinate
         car.x = x - 1
         # add 1 (move) to counter moves
-        self.moves += 1
+        # self.moves += 1
 
     def moveDown(self, car):
         """
@@ -201,7 +180,7 @@ class Game(object):
         # update y coordinate
         car.y = y + 1
         # add 1 (move) to counter moves
-        self.moves += 1
+        # self.moves += 1
 
     def moveUp(self, car):
         """
@@ -222,7 +201,7 @@ class Game(object):
         # update y coordinate
         car.y = y - 1
         # add 1 (move) to counter moves
-        self.moves += 1
+        # self.moves += 1
 
     def isEmptyAndMove(self, car):
         """
@@ -236,25 +215,55 @@ class Game(object):
 
         # determine orientation of car (either horizontal ("H") or vertical ("V"))
         if car.orientation == "H":
-            # make sure movement will not place car out of bounds right side of grid
-            if x < (self.playboard.dimension - car.length):
-                # check if right side next to the car is empty
-                if self.playboard.grid[x + car.length, y] == 0:
-                    a = Game.checkMove(self)
-                    Game.moveRight(self, car)
-                    b = Game.checkMove(self)
-                    if a == b:
-                        Game.moveLeft(self, car)
-
-            # make sure movement will not place car out of bounds, left side of grid
-            elif x > 0:
-                # check if left side next to the car is empty
-                if self.playboard.grid[x - 1, y] == 0:
-                    a = Game.checkMove(self)
-                    Game.moveLeft(self, car)
-                    b = Game.checkMove(self)
-                    if a == b:
+            if car.idcar == 1:
+                # make sure movement will not place car out of bounds right side of grid
+                if x < (self.playboard.dimension - car.length):
+                    # check if right side next to the car is empty
+                    if self.playboard.grid[x + car.length, y] == 0:
+                        a = Game.checkMove(self)
                         Game.moveRight(self, car)
+                        self.moves += 1
+                        b = Game.checkMove(self)
+                        if a == b:
+                            Game.moveLeft(self, car)
+                            self.moves -= 1
+
+                # make sure movement will not place car out of bounds, left side of grid
+                elif x > 0:
+                    # check if left side next to the car is empty
+                    if self.playboard.grid[x - 1, y] == 0:
+                        a = Game.checkMove(self)
+                        Game.moveLeft(self, car)
+                        self.moves += 1
+                        b = Game.checkMove(self)
+                        if a == b:
+                            Game.moveRight(self, car)
+                            self.moves -= 1
+
+            else:
+                # make sure movement will not place car out of bounds, left side of grid
+                if x > 0:
+                    # check if left side next to the car is empty
+                    if self.playboard.grid[x - 1, y] == 0:
+                        a = Game.checkMove(self)
+                        Game.moveLeft(self, car)
+                        self.moves += 1
+                        b = Game.checkMove(self)
+                        if a == b:
+                            Game.moveRight(self, car)
+                            self.moves -= 1
+
+                # make sure movement will not place car out of bounds, right side of grid
+                if x < (self.playboard.dimension - car.length):
+                    # check if right side next to the car is empty
+                    if self.playboard.grid[x + car.length, y] == 0:
+                        a = Game.checkMove(self)
+                        Game.moveRight(self, car)
+                        self.moves += 1
+                        b = Game.checkMove(self)
+                        if a == b:
+                            Game.moveLeft(self, car)
+                            self.moves -= 1
 
         elif car.orientation == "V":
             # make sure movement will not place car out of bounds, above the grid
@@ -263,22 +272,27 @@ class Game(object):
                 if self.playboard.grid[x, y + car.length] == 0:
                     a = Game.checkMove(self)
                     Game.moveDown(self, car)
+                    self.moves += 1
                     b = Game.checkMove(self)
                     if a == b:
                         Game.moveUp(self, car)
+                        self.moves -= 1
 
             # make sure movement will not place car out of bounds, underneath the grid
-            elif y > 0:
+            if y > 0:
                 # check if place underneath the car is empty
                 if self.playboard.grid[x, y - 1] == 0:
                     a = Game.checkMove(self)
                     Game.moveUp(self, car)
+                    self.moves += 1
                     b = Game.checkMove(self)
                     if a == b:
                         Game.moveDown(self, car)
+                        self.moves -= 1
 
     def checkMove(self):
 
+        self.listStates = []
         for i in self.playboard.grid.T:
             for j in i:
                 x = int(j)
@@ -286,7 +300,7 @@ class Game(object):
         num = int(''.join(map(str,self.listStates)))
         # num = "%036d" % (num) #36 komt van 2x dimension
         self.setStates.add(num)
-        print self.setStates
+        #print self.setStates
         return len(self.setStates)
 
 
@@ -307,7 +321,12 @@ class Game(object):
             #
             for i in range(0, len(self.listOfCar)):
                 current = self.listOfCar[i]
-                game.isEmptyAndMove(current)
+                if self.playboard.grid[self.playboard.dimension - 1, math.ceil(self.playboard.dimension / 2 - 1)] != 1:
+                    game.isEmptyAndMove(current)
+                    print self.playboard.grid.T
+                    print self.moves
+                else:
+                    break
 
         # print transposed state of grid
         print self.playboard.grid.T
@@ -337,24 +356,3 @@ game = Game(board)
 for i in listcar:
     game.addCar(i)
 game.isMovable()
-
-
-        # z = int(str(x) + )
-        # if len(lijstset) == 0:
-        #     lijstset.update({lijst})
-        #     print "Dit moet er 1x staan"
-        # else:
-        #     #lijst.add({j})
-        #     print "werkt niet"
-
-# lijst = []
-# lijstset = set()
-# for i in board.grid.T:
-#     for j in i:
-#        x = int(j)
-#        lijst.append(x)
-# num = int(''.join(map(str,lijst)))
-# num = "%036d" % (num) #36 komt van 2x dimension
-# lijstset.add(num)
-# print num
-# print lijstset
