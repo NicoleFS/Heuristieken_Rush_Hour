@@ -365,3 +365,5 @@ game = Game(board)
 for i in listcar:
     game.addCar(i)
 game.isMovable()
+
+# verandering
