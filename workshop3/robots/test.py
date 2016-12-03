@@ -1,4 +1,8 @@
 import numpy as np
+import matplotlib
+matplotlib.use("TkAgg")
+import visualize_rush
+import pylab
 
 class Car (object):
     def __init__(self, x, y, length, orientation, idcar):
@@ -129,13 +133,22 @@ class Game(object):
 
 
 
+def runSimulation(listcar, dimension):
+    
+    # Starts animation.
+    anim = visualize_rush.RushVisualization(listcar, dimension)
 
+    board = Grid(6)
+    game = Game(board, listcar)
 
+    for i in listcar:
+        game.add_car(i)
 
-
-
-
-
+    game.isMovable()
+    anim.update(listcar)
+            
+    # Stop animation when done.
+    anim.done()
 
 
 
@@ -156,7 +169,11 @@ for i in listcar:
     board.fillTiles(i)
 print board.grid.T
 print "\n"
+listLenght = len(listcar)
+print listLenght
 game = Game(board, listcar)
 for i in listcar:
     game.add_car(i)
 game.isMovable()
+
+runSimulation(listcar, board.dimension)
