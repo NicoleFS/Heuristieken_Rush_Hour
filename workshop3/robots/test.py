@@ -76,12 +76,14 @@ class Game(object):
                                 self.playboard.grid[x,y] = 0
                                 current.x = x + 1
                                 moves += 1
+                                print self.playboard.grid.T
                         elif x > 0:
                             if self.playboard.grid[x - 1, y] == 0:
                                 self.playboard.grid[x - 1, y] = current.idcar
                                 self.playboard.grid[x + 1, y] = 0
                                 current.x = x - 1
                                 moves += 1
+                                print self.playboard.grid.T
                     elif current.length == 3:
                         if x < 3:
                             if self.playboard.grid[x + 3, y] == 0:
@@ -89,12 +91,14 @@ class Game(object):
                                 self.playboard.grid[x,y] = 0
                                 current.x = x + 1
                                 moves += 1
+                                print self.playboard.grid.T
                         elif x > 0:
                             if self.playboard.grid[x - 1, y] == 0:
                                 self.playboard.grid[x - 1, y] = current.idcar
                                 self.playboard.grid[x + 2, y] = 0
                                 current.x = x - 1
                                 moves += 1
+                                print self.playboard.grid.T
                 elif current.orientation == "V":
                     if current.length == 2:
                         if y < 4:
@@ -103,12 +107,14 @@ class Game(object):
                                 self.playboard.grid[x,y] = 0
                                 current.y = y + 1
                                 moves += 1
+                                print self.playboard.grid.T
                         elif y > 0:
                             if self.playboard.grid[x, y - 1] == 0:
                                 self.playboard.grid[x, y - 1] = current.idcar
                                 self.playboard.grid[x, y + 1] = 0
                                 current.y = y - 1
                                 moves += 1
+                                print self.playboard.grid.T
                     elif current.length == 3:
                         if y < 3:
                             if self.playboard.grid[x, y + 3] == 0:
@@ -116,22 +122,34 @@ class Game(object):
                                 self.playboard.grid[x,y] = 0
                                 current.y = y + 1
                                 moves += 1
+                                print self.playboard.grid.T
                         elif y > 0:
                             if self.playboard.grid[x, y - 1] == 0:
                                 self.playboard.grid[x, y - 1] = current.idcar
                                 self.playboard.grid[x,y + 2] = 0
                                 current.y = y - 1
                                 moves += 1
-                print self.playboard.grid.T
-                print moves
+                                print self.playboard.grid.T
                 print "\n"
                 # if self.playboard.grid[5,2] == 1:
                 #     print "Congrats!"
                 #     break
         print self.playboard.grid.T
+        print moves
         print "Congrats!"
 
 
+class Queue:
+    def __init__(self):
+        self.length = 0
+        self.attributes = []
+    def insert(self, item):
+        self.attributes.insert(0,item)
+    def remove(self):
+        if self.attributes == []:
+            print "The queue is empty"
+        else:
+            print self.attributes.pop()
 
 def runSimulation(listcar, dimension):
     
@@ -150,9 +168,6 @@ def runSimulation(listcar, dimension):
     # Stop animation when done.
     anim.done()
 
-
-
-
 car1 = Car(3, 2, 2, "H", 1)
 car2 = Car(2, 0, 3, "V", 2)
 car3 = Car(3, 0, 2, "H", 3)
@@ -163,7 +178,7 @@ car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
 
-listcar = [car1, car2, car3, car4, car5]
+listcar = [car1, car2, car3, car4, car5, car6]
 board = Grid(6)
 for i in listcar:
     board.fillTiles(i)
