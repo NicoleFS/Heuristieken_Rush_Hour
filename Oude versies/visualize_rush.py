@@ -1,10 +1,10 @@
 import math
 import time
 
-from Tkinter import *
+import Tkinter as tk
 
 class RushVisualization:
-    def __init__(self, cars, dimension):
+    def __init__(self, game):
         "Initializes a visualization with the specified parameters."
 
         self.max_dim = max(dimension, dimension)
@@ -13,25 +13,25 @@ class RushVisualization:
         self.cars = cars
 
         # Initialize a drawing surface
-        self.master = Tk()
-        self.w = Canvas(self.master, width=500, height=500)
-        self.w.pack()
+        self.master = tk.Tk()
+        self.canvas = tk.Canvas(self.master, width=500, height=500)
+        self.canvas.pack()
         self.master.update()
 
         # Draw a backing and lines
         x1, y1 = self._map_coords(0, 0)
         x2, y2 = self._map_coords(dimension, dimension)
-        self.w.create_rectangle(x1, y1, x2, y2, fill = "white")
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill = "white")
 
         # Draw gridlines
         for i in range(dimension + 1):
             x1, y1 = self._map_coords(i, 0)
             x2, y2 = self._map_coords(i, dimension)
-            self.w.create_line(x1, y1, x2, y2)
+            self.canvas.create_line(x1, y1, x2, y2)
         for i in range(dimension + 1):
             x1, y1 = self._map_coords(0, i)
             x2, y2 = self._map_coords(dimension, i)
-            self.w.create_line(x1, y1, x2, y2)
+            self.canvas.create_line(x1, y1, x2, y2)
 
     def _map_coords(self, x, y):
         "Maps grid positions to window positions (in pixels)."
@@ -40,13 +40,13 @@ class RushVisualization:
 
     def _draw_car(self, car):
         "Returns a rectangle representing a car with the specified parameters."
-        x, y = car.getX(), car.getY()
+        x, y = car.x, car.y
         x1, y1 = self._map_coords(x, y)
         if (car.orientation == "H"):
             x2, y2 = self._map_coords((x + 1), y)
         if (car.orientation == "V"):
             x2, y2 = self._map_coords(x, (y + 1))
-        return self.w.create_rectangle(x1, y1, x2, y2, fill = "red")
+        return self.canvas.create_rectangle(x1, y1, x2, y2, fill = "red")
 
     def update(self, cars):
         "Redraws the visualization with the specified board and car state."
@@ -54,13 +54,13 @@ class RushVisualization:
         # Delete all existing cars.
         if self.cars:
             for car in self.cars:
-                self.w.delete(car)
+                self.canvas.delete(car)
                 self.master.update_idletasks()
 
         # Draw new cars
         self.cars = []
         for car in self.cars:
-            x, y = car.getX(), car.getY()
+            x, y = car.x, car.y
             x1, y1 = self._map_coords(x, y)
             if (car.orientation == "H"):
                 x2, y2 = self._map_coords((x + 1), y)
@@ -77,6 +77,8 @@ class RushVisualization:
         #     self._draw_car(car)
 
     def done(self):
+        for x,y in game.grid:
+            print
         mainloop()
     #
     # def done(self):
