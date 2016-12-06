@@ -10,6 +10,7 @@ matplotlib.use("TkAgg")
 import visualize_rush_lepps
 import pylab
 import math
+import Queue as QueueClass
 
 class Queue:
     """
@@ -58,11 +59,12 @@ class Game(object):
         self.dimension = dimension
         self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
         self.cars = cars
+        # self.savedGrid = self.grid.T.copy()
 
         for car in self.cars:
             self.addCarToGrid(car)
 
-        print self.grid.T
+        # print self.grid.T
 
         # create counter to count total number of moves needed to win the game.
         self.moves = 0
@@ -70,6 +72,11 @@ class Game(object):
         self.stateSet = set()
         # create list to store single board state
         self.stateList = []
+
+        self.queue = QueueClass.Queue(maxsize=0)
+
+    def copyGrid(self):
+        self.savedGrid = self.grid.T.copy()
 
     def addCarToGrid(self, car):
         """
@@ -181,6 +188,9 @@ class Game(object):
         x = car.x
         y = car.y
 
+        self.copyGrid()
+        self.queue.put(self.savedGrid)
+
         # determine orientation of car (either horizontal ("H") or vertical ("V"))
         if car.orientation == "H":
             if car.id == 1:
@@ -195,6 +205,9 @@ class Game(object):
                         if a == b:
                             Game.moveLeft(self, car)
                             self.moves -= 1
+                        else:
+                            self.copyGrid()
+                            self.queue.put(self.savedGrid)
 
                 # make sure movement will not place car out of bounds, left side of grid
                 if x > 0:
@@ -207,6 +220,9 @@ class Game(object):
                         if a == b:
                             Game.moveRight(self, car)
                             self.moves -= 1
+                        else:
+                            self.copyGrid()
+                            self.queue.put(self.savedGrid)
 
             else:
                 # make sure movement will not place car out of bounds, left side of grid
@@ -220,6 +236,9 @@ class Game(object):
                         if a == b:
                             Game.moveRight(self, car)
                             self.moves -= 1
+                        else:
+                            self.copyGrid()
+                            self.queue.put(self.savedGrid)
 
                 # make sure movement will not place car out of bounds, right side of grid
                 if x < (self.dimension - car.length):
@@ -232,6 +251,9 @@ class Game(object):
                         if a == b:
                             Game.moveLeft(self, car)
                             self.moves -= 1
+                        else:
+                            self.copyGrid()
+                            self.queue.put(self.savedGrid)
 
         elif car.orientation == "V":
             # make sure movement will not place car out of bounds, above the grid
@@ -245,6 +267,9 @@ class Game(object):
                     if a == b:
                         Game.moveUp(self, car)
                         self.moves -= 1
+                    else:
+                        self.copyGrid()
+                        self.queue.put(self.savedGrid)
 
             # make sure movement will not place car out of bounds, underneath the grid
             if y > 0:
@@ -257,6 +282,9 @@ class Game(object):
                     if a == b:
                         Game.moveDown(self, car)
                         self.moves -= 1
+                    else:
+                        self.copyGrid()
+                        self.queue.put(self.savedGrid)
 
     def checkMove(self):
         self.stateList = []
@@ -304,6 +332,7 @@ class Game(object):
         print self.grid.T
         print self.moves
         print "Congrats!"
+        print self.queue.get()
 
 def runSimulation(game):
     
@@ -328,5 +357,6 @@ cars = [car1, car2, car3, car4, car5]
 
 game = Game(6, cars)
 game.isMovable()
+print game.queue.queue
 
-runSimulation(game)
+#runSimulation(game)
