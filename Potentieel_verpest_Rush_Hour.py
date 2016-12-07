@@ -275,9 +275,6 @@ class Game(object):
         for i in range (2):
             for i in range(len(self.cars)):
                 movable = self.canMoveCar(self.cars[i])
-                #if movable == False:
-                    #self.cars[i].canMove = False
-                    # print self.cars[i].id, self.cars[i].canMove, self.cars[i].nextMove
                 if movable != False:
                     self.cars[i].canMove = True
                     print self.cars[i].id, self.cars[i].canMove, self.cars[i].nextMove
@@ -296,6 +293,7 @@ class Game(object):
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
+                self.movableCars.pop(0)
                 self.dequeue()
 
             if self.movableCars[i].nextMove == "Left" and self.movableCars[i].canMove == True:
@@ -303,6 +301,7 @@ class Game(object):
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
+                self.movableCars.pop(0)
                 self.dequeue()
 
             if self.movableCars[i].nextMove == "Up" and self.movableCars[i].canMove == True:
@@ -312,6 +311,7 @@ class Game(object):
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
+                self.movableCars.pop(0)
                 self.dequeue()
 
             if self.movableCars[i].nextMove == "Down" and self.movableCars[i].canMove == True:
@@ -321,6 +321,7 @@ class Game(object):
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
+                self.movableCars.pop(0)
                 self.dequeue()
 
             print"______________________________"
