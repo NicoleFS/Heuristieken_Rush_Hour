@@ -26,6 +26,8 @@ class Car(object):
         self.orientation = orientation
         self.length = length
         self.id = id
+        self.canMove = False
+        self.nextMove = ""
 
 class Game(object):
     """
@@ -45,7 +47,7 @@ class Game(object):
             self.addCarToGrid(car)
 
         self.queue = QueueClass.Queue(maxsize=0)
-        self.queue.put(self.grid.copy())
+        # self.queue.put(self.grid.copy())
 
         # create counter to count total number of moves needed to win the game.
         self.moves = 0
@@ -54,6 +56,7 @@ class Game(object):
         # create list to store single board state
         self.stateList = []
 
+        self.movableCars = []
 
     def addCarToGrid(self, car):
         """
@@ -83,8 +86,7 @@ class Game(object):
                     y += 1
                 else:
                     print "Error, car cannot be placed on a tile that contains another car"
-        # return self.grid
-
+                    # return self.grid
 
     def moveRight(self, car):
         """
@@ -157,116 +159,93 @@ class Game(object):
         # add 1 (move) to counter moves
         # self.moves += 1
 
-    def isEmptyAndMove(self, car):
-        """
-        Checks whether a place on the grid is empty, if so, move the car.
-        :return: function corresponding with a certain movement.
-        """
-        # obtain current coordinates of car
-        # x = car.x
-        # y = car.y
+    def invalidMove(self):
+        #print "invalid move"
+        self.moves -= 1
+        return False
 
+    def validMove(self):
+        #print "valid move"
+        self.moves += 1
+        self.queue.put(self.grid.copy())
+        return True
+
+    def canMoveCar(self, car):
+        """
+        Checks whether a place on the grid is empty, if so, moves the car and moves it back.
+        Then checks if the move has already been made, if so it returns false.
+        Otherwise returns true and adds the move to the queue
+        """
 
         # determine orientation of car (either horizontal ("H") or vertical ("V"))
         if car.orientation == "H":
-            if car.id == 1:
-                # make sure movement will not place car out of bounds right side of grid
-                if car.x < (self.dimension - car.length):
-                    # check if right side next to the car is empty
-                    if self.grid[car.x + car.length, car.y] == 0:
-                        a = Game.checkMove(self)
-                        Game.moveRight(self, car)
-                        self.moves += 1
-                        b = Game.checkMove(self)
-                        if a == b:
-                            Game.moveLeft(self, car)
-                            self.moves -= 1
-                        else:
-                            self.queue.put(self.grid.copy())
-                            print self.grid.T
-                            Game.moveLeft(self,car)
+            # check if the car can move to the right
+            if car.x < (self.dimension - car.length) and self.grid[car.x + car.length, car.y] == 0:
+                a = Game.checkMove(self)
+                Game.moveRight(self, car)
+                b = Game.checkMove(self)
+                Game.moveLeft(self, car)
+                if a == b:
+                    self.invalidMove()
+                    return False
+                else:
+                    self.validMove()
+                    car.nextMove = "Right"
+                    return True
 
-                # make sure movement will not place car out of bounds, left side of grid
-                if car.x > 0:
-                    # check if left side next to the car is empty
-                    if self.grid[car.x - 1, car.y] == 0:
-                        a = Game.checkMove(self)
-                        Game.moveLeft(self, car)
-                        self.moves += 1
-                        b = Game.checkMove(self)
-                        if a == b:
-                            Game.moveRight(self, car)
-                            self.moves -= 1
-                        else:
-                            self.queue.put(self.grid.copy())
-                            print self.grid.T
-                            Game.moveRight(self, car)
-
+            # check if the car can move to the left
+            elif car.x > 0 and self.grid[car.x - 1, car.y] == 0:
+                a = Game.checkMove(self)
+                Game.moveLeft(self, car)
+                self.moves += 1
+                b = Game.checkMove(self)
+                Game.moveRight(self, car)
+                if a == b:
+                    self.invalidMove()
+                    return False
+                else:
+                    self.validMove()
+                    car.nextMove = "Left"
+                    return True
             else:
-                # make sure movement will not place car out of bounds, left side of grid
-                if car.x > 0:
-                    # check if left side next to the car is empty
-                    if self.grid[car.x - 1, car.y] == 0:
-                        a = Game.checkMove(self)
-                        Game.moveLeft(self, car)
-                        self.moves += 1
-                        b = Game.checkMove(self)
-                        if a == b:
-                            Game.moveRight(self, car)
-                            self.moves -= 1
-                        else:
-                            self.queue.put(self.grid.copy())
-                            print self.grid.T
-                            Game.moveRight(self, car)
-
-                # make sure movement will not place car out of bounds, right side of grid
-                if car.x < (self.dimension - car.length):
-                    # check if right side next to the car is empty
-                    if self.grid[car.x + car.length, car.y] == 0:
-                        a = Game.checkMove(self)
-                        Game.moveRight(self, car)
-                        self.moves += 1
-                        b = Game.checkMove(self)
-                        if a == b:
-                            Game.moveLeft(self, car)
-                            self.moves -= 1
-                        else:
-                            self.queue.put(self.grid.copy())
-                            print self.grid.T
-                            Game.moveLeft(self, car)
+                #print "Car can not be moved"
+                return False
 
         elif car.orientation == "V":
-            # make sure movement will not place car out of bounds, above the grid
-            if car.y < (self.dimension - car.length):
-                # check if place above the car is empty
-                if self.grid[car.x, car.y + car.length] == 0:
-                    a = Game.checkMove(self)
-                    Game.moveDown(self, car)
-                    self.moves += 1
-                    b = Game.checkMove(self)
-                    if a == b:
-                        Game.moveUp(self, car)
-                        self.moves -= 1
-                    else:
-                        self.queue.put(self.grid.copy())
-                        print self.grid.T
-                        Game.moveUp(self, car)
+            # check if the car can move to the down
+            if car.y < (self.dimension - car.length) and self.grid[car.x, car.y + car.length] == 0:
+                a = Game.checkMove(self)
+                Game.moveDown(self, car)
+                self.moves += 1
+                b = Game.checkMove(self)
+                Game.moveUp(self, car)
+                if a == b:
+                    self.invalidMove()
+                    car.nextMove = "Down"
+                    return False
+                else:
+                    self.validMove()
+                    return True
 
-            # make sure movement will not place car out of bounds, underneath the grid
-            if car.y > 0:
+            # check if the car can move to the up
+            elif car.y > 0 and self.grid[car.x, car.y - 1] == 0:
                 # check if place underneath the car is empty
-                if self.grid[car.x, car.y - 1] == 0:
-                    a = Game.checkMove(self)
-                    Game.moveUp(self, car)
-                    self.moves += 1
-                    b = Game.checkMove(self)
-                    if a == b:
-                        Game.moveDown(self, car)
-                        self.moves -= 1
-                    else:
-                        self.queue.put(self.grid.copy())
-                        print self.grid.T
-                        Game.moveDown(self, car)
+                a = Game.checkMove(self)
+                Game.moveUp(self, car)
+                self.moves += 1
+                b = Game.checkMove(self)
+                Game.moveDown(self, car)
+                if a == b:
+                    self.invalidMove()
+                    return False
+                else:
+                    self.validMove()
+                    car.nextMove = "Up"
+                    return True
+            else:
+                return False
+        else:
+           print "No car orientation was found"
 
     def checkMove(self):
         self.stateList = []
@@ -275,9 +254,7 @@ class Game(object):
                 x = int(j)
                 self.stateList.append(x)
         num = int(''.join(map(str,self.stateList)))
-        # num = "%036d" % (num) #36 komt van 2x dimension
         self.stateSet.add(num)
-        #print self.setStates
         return len(self.stateSet)
 
     def isMovable(self):
@@ -291,43 +268,66 @@ class Game(object):
 
         :return: grid with a chosen car that is moved.
         """
+
+        print self.grid.T
+
+        for i in range (2):
+            for i in range(len(self.cars)):
+                movable = self.canMoveCar(self.cars[i])
+                if movable != False:
+                    self.cars[i].canMove = True
+                    self.movableCars.append(self.cars[i])
+
+    def dequeue (self):
+        self.isMovable()
+        self.queue.get()
+        for i in range(len(self.movableCars)):
+            # self.queue.get()
+            print self.movableCars[i].id
+            print self.movableCars[i].nextMove
+            # print current.id
+            if self.movableCars[i].nextMove == "Right":
+                self.moveRight(self.movableCars[i])
+                self.dequeue()
+
+            if self.movableCars[i].nextMove == "Left":
+                self.moveLeft(self.movableCars[i])
+                self.dequeue()
+
+            if self.movableCars[i].nextMove == "Up":
+                print self.movableCars[i].x, self.movableCars[i].y
+                self.moveUp(self.movableCars[i])
+                print self.movableCars[i].x, self.movableCars[i].y
+                self.dequeue()
+
+            if self.movableCars[i].nextMove == "Down":
+                print self.movableCars[i].x, self.movableCars[i].y
+                self.moveDown(self.movableCars[i])
+                print self.movableCars[i].x, self.movableCars[i].y
+                self.dequeue()
+
+            print"______________________________"
+        #print self.queue.queue
+
         # check if winning position is occupied by red car
 
-        winningPosition = self.dimension - 1, int(self.dimension / 2 - 1)
-
-        self.grid = self.grid
-        while self.grid[winningPosition] != 1:
-            for i in range(2):
-                for i in range(0, len(self.cars)):
-                    current = self.cars[i]
-                    if self.grid[winningPosition] != 1:
-                        game.isEmptyAndMove(current)
-                        # num in queue/stack zetten
-                        # in geval van queue, move ongedaan maken
-                        # eerste item uit queue, laatste uit stack halen
-                        # daar weer children van maken, aka num in queue zetten
-                        # nieuwe parent als game instellen
-                        #
-                        #print self.grid.T
-                        #print self.moves
-                    else:
-                        break
-            # print self.queue.queue
-            self.grid = self.queue.get()
-            print self.grid
-
-
-        # print transposed state of grid
-        print self.grid.T
-        print self.moves
-        print "Congrats!"
-        print self.queue.get()
+        # winningPosition = self.dimension - 1, int(self.dimension / 2 - 1)
+        #
+        # self.grid = self.grid
+        # while self.grid[winningPosition] != 1:
+        #     for i in range(2):
+        #         for i in range(0, len(self.cars)):
+        #             current = self.cars[i]
+        #             if self.grid[winningPosition] != 1:
+        #                 game.isEmptyAndMove(current)
+        #             else:
+        #                 break
 
 def runSimulation(game):
-    
+
     # Starts animation.
     anim = visualize_rush_lepps.RushVisualization(game, 500)
-            
+
     # Stop animation when done.
     anim.done()
 
@@ -341,9 +341,9 @@ car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
 
-cars = [car1, car2, car3, car4, car5]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 game = Game(6, cars)
-game.isMovable()
+game.dequeue()
 
-#runSimulation(game)
+# runSimulation(game)
