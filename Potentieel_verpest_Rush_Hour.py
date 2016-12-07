@@ -284,10 +284,6 @@ class Game(object):
         self.isMovable()
         self.queue.get()
         for i in range(len(self.movableCars)):
-            # self.queue.get()
-            print self.movableCars[i].id, self.movableCars[i].canMove
-            print self.movableCars[i].nextMove
-            # print current.id
             if self.movableCars[i].nextMove == "Right" and self.movableCars[i].canMove == True:
                 self.moveRight(self.movableCars[i])
                 self.movableCars[i].canMove = False
@@ -305,9 +301,7 @@ class Game(object):
                 self.dequeue()
 
             if self.movableCars[i].nextMove == "Up" and self.movableCars[i].canMove == True:
-                # print self.movableCars[i].x, self.movableCars[i].y
                 self.moveUp(self.movableCars[i])
-                # print self.movableCars[i].x, self.movableCars[i].y
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
@@ -315,9 +309,7 @@ class Game(object):
                 self.dequeue()
 
             if self.movableCars[i].nextMove == "Down" and self.movableCars[i].canMove == True:
-                # print self.movableCars[i].x, self.movableCars[i].y
                 self.moveDown(self.movableCars[i])
-                # print self.movableCars[i].x, self.movableCars[i].y
                 self.movableCars[i].canMove = False
                 self.movableCars[i].nextMove = ""
                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove
@@ -325,7 +317,7 @@ class Game(object):
                 self.dequeue()
 
             print"______________________________"
-        #print self.queue.queue
+            print self.queue.queue
 
         # check if winning position is occupied by red car
 
