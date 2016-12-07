@@ -26,8 +26,8 @@ class Car(object):
         self.orientation = orientation
         self.length = length
         self.id = id
-        self.canMove = False
-        self.nextMove = ""
+        # self.canMove = False
+        # self.nextMove = ""
 
 class Game(object):
     """
@@ -41,13 +41,15 @@ class Game(object):
         self.dimension = dimension
         self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
         self.cars = cars
-        # self.savedGrid = self.grid.T.copy()
 
         for car in self.cars:
             self.addCarToGrid(car)
 
-        self.queue = QueueClass.Queue(maxsize=0)
-        # self.queue.put(self.grid.copy())
+        self.gridQueue = QueueClass.Queue(maxsize=0)
+        self.carsQueue = QueueClass.Queue(maxsize=0)
+
+        self.gridQueue.put(self.grid.copy())
+        self.carsQueue.put(self.cars)
 
         # create counter to count total number of moves needed to win the game
         self.moves = 0
@@ -55,7 +57,7 @@ class Game(object):
         self.stateSet = set()
         # create list to store single board state
         self.stateList = []
-        self.movableCars = []
+        # self.movableCars = []
 
     def addCarToGrid(self, car):
         """
@@ -119,7 +121,7 @@ class Game(object):
                 return True
         return False
 
-    def moveRight(self, car):
+    def moveRight(self, carId):
         """
         'Moves' a given car 1 place to the right on the grid.
         Replaces the 0 on the right side next to the car with integer idcar
@@ -127,17 +129,19 @@ class Game(object):
 
         :return: grid (with 1 moved car compared to previous state of grid).
         """
-
+        car = self.cars[carId.id - 1]
         # replace right side next to the car with integer idcar
         self.grid[car.x + car.length, car.y] = car.id
         # replace the left side of the car with a 0 (empty)
         self.grid[car.x, car.y] = 0
         # update x coordinate
         car.x = car.x + 1
+        self.cars[car.id - 1] = car
+
         # add 1 (move) to counter moves
         # self.moves += 1
 
-    def moveLeft(self, car):
+    def moveLeft(self, carId):
         """
         'Moves' a given car 1 place to the left on the grid.
         Replaces the 0 on the left side next to the car with integer idcar
@@ -145,17 +149,19 @@ class Game(object):
 
         :return: grid (with 1 moved car compared to previous state of grid).
         """
-
+        car = self.cars[carId.id - 1]
         # replace left side next to the car with integer idcar
         self.grid[car.x - 1, car.y] = car.id
         # replace the right side of the car with a 0 (empty)
         self.grid[car.x + (car.length - 1), car.y] = 0
         # update x coordinate
         car.x = car.x - 1
+        self.cars[car.id - 1] = car
+
         # add 1 (move) to counter moves
         # self.moves += 1
 
-    def moveDown(self, car):
+    def moveDown(self, carId):
         """
         'Moves' a given car 1 place down on the grid.
         Replaces the 0 one place underneath the car with integer idcar
@@ -163,16 +169,19 @@ class Game(object):
 
         :return: grid (with 1 moved car compared to previous state of grid).
         """
+        car = self.cars[carId.id - 1]
         # replace one place underneath the car with integer idcar
         self.grid[car.x, car.y + car.length] = car.id
         # replace the top of the car with a 0 (empty)
         self.grid[car.x, car.y] = 0
         # update y coordinate
         car.y = car.y + 1
+        self.cars[car.id - 1] = car
+
         # add 1 (move) to counter moves
         # self.moves += 1
 
-    def moveUp(self, car):
+    def moveUp(self, carId):
         """
         'Moves' a given car 1 place up on the grid.
         Replaces the 0 one place above the car with integer idcar
@@ -180,15 +189,14 @@ class Game(object):
 
         :return: grid (with 1 moved car compared to previous state of grid).
         """
-
+        car = self.cars[carId.id - 1]
         # replace one place above the car with integer idcar
         self.grid[car.x, car.y - 1] = car.id
         # replace the bottom of the car with a 0 (empty)
         self.grid[car.x, car.y + (car.length - 1)] = 0
         # update y coordinate
         car.y = car.y - 1
-        # add 1 (move) to counter moves
-        # self.moves += 1
+        self.cars[car.id - 1] = car
 
     def canMoveCar(self, car):
         """
@@ -276,6 +284,10 @@ class Game(object):
                 Game.moveDown(self, car)
                 return False
 
+    def putinQueue(self):
+        self.gridQueue.put(self.grid.copy())
+        self.carsQueue.put(self.cars)
+
     def checkMove(self):
         hash = ""
         for i in range(len(self.grid)):
@@ -288,70 +300,71 @@ class Game(object):
         for car in self.cars:
             print car.id
             print "Car coordinate ", car.x, car.y
-            print "Checking up"
-            if Game.canMoveUp(self, car):
+            # print "Checking up"
+            if self.canMoveUp(car):
                 a = Game.checkMove(self)
-                Game.moveUp(self, car)
+                self.moveUp(car)
                 b = Game.checkMove(self)
                 if a != b:
                     print "Putting grid in queue:"
-                    print self.grid.T
-                    self.queue.put(self.grid.copy())
+                    # print self.grid.T
+                    self.putinQueue()
                 else:
                     print "This grid is already in the queue:"
-                    print self.grid.T
-                Game.moveDown(self, car)
+                    # print self.grid.T
+                self.moveDown(car)
 
-            print "Checking down"
-            if Game.canMoveDown(self, car):
+            # print "Checking down"
+            if self.canMoveDown(car):
                 a = Game.checkMove(self)
-                Game.moveDown(self, car)
+                self.moveDown(car)
                 b = Game.checkMove(self)
                 if a != b:
                     print "Putting grid in queue:"
-                    print self.grid.T
-                    self.queue.put(self.grid.copy())
+                    # print self.grid.T
+                    self.putinQueue()
                 else:
                     print "This grid is already in the queue:"
-                    print self.grid.T
-                Game.moveUp(self, car)
+                    # print self.grid.T
+                self.moveUp(car)
 
-            print "Checking right"
-            if Game.canMoveRight(self, car):
+            # print "Checking right"
+            if self.canMoveRight(car):
                 a = Game.checkMove(self)
-                Game.moveRight(self, car)
+                self.moveRight(car)
                 b = Game.checkMove(self)
                 if a != b:
                     print "Putting grid in queue:"
-                    print self.grid.T
-                    self.queue.put(self.grid.copy())
+                    # print self.grid.T
+                    self.putinQueue()
                 else:
                     print "This grid is already in the queue:"
-                    print self.grid.T
-                Game.moveLeft(self, car)
+                    # print self.grid.T
+                self.moveLeft(car)
 
-            print "Checking left"
+            # print "Checking left"
             if Game.canMoveLeft(self, car):
                 a = Game.checkMove(self)
-                Game.moveLeft(self, car)
+                self.moveLeft(car)
                 b = Game.checkMove(self)
                 if a != b:
                     print "Putting grid in queue:"
-                    print self.grid.T
-                    self.queue.put(self.grid.copy())
+                    # print self.grid.T
+                    self.putinQueue()
                 else:
                     print "This grid is already in the queue:"
-                    print self.grid.T
-                Game.moveRight(self, car)
+                    # print self.grid.T
+                self.moveRight(car)
 
-    def deququququ(self):
+    def deque(self):
         print "Starting grid:\n"
         print self.grid.T
         print "\n"
 
-        self.queue.put(self.grid.copy())
+        # self.queue.put(self.grid.copy())
         while self.grid[self.dimension - 1, int(self.dimension / 2 - 1)] != 1:
-            self.grid = self.queue.get()
+            self.grid = self.gridQueue.get()
+            self.cars = self.carsQueue.get()
             print "Removing grid from queue:"
             print self.grid.T
             self.queueAllPossibleMoves()
@@ -383,6 +396,6 @@ cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 print "Starting"
 game = Game(6, cars)
-game.deququququ()
+game.deque()
 
 # runSimulation(game)
