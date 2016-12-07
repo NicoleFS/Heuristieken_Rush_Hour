@@ -284,27 +284,6 @@ class Game(object):
         self.stateSet.add(hash)
         return len(self.stateSet)
 
-    # def isMovable(self):
-    #     """
-    #     Moves a car in a random direction if possible.
-    #     Checks if the red car (always the first car in the given list) is on the winning position.
-    #     If red car is on the winning position, print congratulatory message and stop function.
-    #
-    #     Works it way down from the list of cars.
-    #     So first car in the list is the first car to be checked.
-    #
-    #     :return: grid with a chosen car that is moved.
-    #     """
-    #
-    #     print "- - - - - - - - - - - - - - - -"
-    #     print self.grid.T
-    #
-    #     for i in range(len(self.cars)):
-    #         if self.canMoveCar(self.cars[i]):
-    #             self.cars[i].canMove = True
-    #             print self.cars[i].id, self.cars[i].canMove, self.cars[i].nextMove
-    #             self.movableCars.append(self.cars[i])
-
     def queueAllPossibleMoves(self):
         for car in self.cars:
             print car.id
@@ -371,95 +350,16 @@ class Game(object):
         print "\n"
 
         self.queue.put(self.grid.copy())
-        shit = 0
         while self.grid[self.dimension - 1, int(self.dimension / 2 - 1)] != 1:
             self.grid = self.queue.get()
             print "Removing grid from queue:"
             print self.grid.T
-            # print queu
             self.queueAllPossibleMoves()
             # print "______QUEUE________"
             # print self.queue.queue
             # print "___________________"
 
-            shit += 1
-
         print "End of loop"
-
-        # print self.queue.queue
-
-
-
-    # def dequeue (self):
-    #     #check for car on winning position
-    #     self.queue.put(self.grid.copy())
-    #     while self.grid[self.dimension - 1, int(self.dimension / 2 - 1)] != 1:
-    #         self.isMovable()
-    #         self.grid = self.queue.get()
-    #         for i in range(len(self.movableCars)):
-    #             if self.movableCars[i].nextMove == "Right" and self.movableCars[i].canMove == True:
-    #                 self.moveRight(self.movableCars[i])
-    #                 self.movableCars[i].canMove = False
-    #                 self.movableCars[i].nextMove = ""
-    #                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove, "right"
-    #                 self.movableCars.pop(0)
-    #                 self.dequeue()
-    #
-    #             if self.movableCars[i].nextMove == "Left" and self.movableCars[i].canMove == True:
-    #                 self.moveLeft(self.movableCars[i])
-    #                 self.queue.put(self.grid.copy())
-    #                 print "////"
-    #                 print self.queue.queue
-    #                 print "////"
-    #                 self.moveRight(self.movableCars[i])
-    #                 self.movableCars[i].canMove = False
-    #                 self.movableCars[i].nextMove = ""
-    #                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove, "left"
-    #                 self.movableCars.pop(0)
-    #                 self.dequeue()
-    #
-    #             if self.movableCars[i].nextMove == "Up" and self.movableCars[i].canMove == True:
-    #                 self.moveUp(self.movableCars[i])
-    #                 self.queue.put(self.grid.copy())
-    #                 print "////"
-    #                 print self.queue.queue
-    #                 print "////"
-    #                 self.moveDown(self.movableCars[i])
-    #                 self.movableCars[i].canMove = False
-    #                 self.movableCars[i].nextMove = ""
-    #                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove, "up"
-    #                 self.movableCars.pop(0)
-    #                 self.dequeue()
-    #
-    #             if self.movableCars[i].nextMove == "Down" and self.movableCars[i].canMove == True:
-    #                 self.moveDown(self.movableCars[i])
-    #                 self.queue.put(self.grid.copy())
-    #                 print "////"
-    #                 print self.queue.queue
-    #                 print "////"
-    #                 self.moveUp(self.movableCars[i])
-    #                 self.movableCars[i].canMove = False
-    #                 self.movableCars[i].nextMove = ""
-    #                 print "moved", self.movableCars[i].id, self.movableCars[i].canMove, "down"
-    #                 self.movableCars.pop(0)
-    #                 self.dequeue()
-    #
-    #             print"________________"
-    #             print self.queue.queue
-
-                # check if winning position is occupied by red car
-
-                # winningPosition = self.dimension - 1, int(self.dimension / 2 - 1)
-                #
-                # self.grid = self.grid
-                # while self.grid[winningPosition] != 1:
-                #     for i in range(2):
-                #         for i in range(0, len(self.cars)):
-                #             current = self.cars[i]
-                #             if self.grid[winningPosition] != 1:
-                #                 game.isEmptyAndMove(current)
-                #             else:
-                #                 break
 
     def runSimulation(game):
 
