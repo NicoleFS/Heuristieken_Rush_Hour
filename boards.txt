@@ -54,27 +54,26 @@ car1 = Car(1, 4, 2, "H", 1)
 car2 = Car(0, 0, 2, "V", 2)
 car3 = Car(0, 3, 2, "H", 3)
 car4 = Car(0, 4, 2, "V", 4)
-car5 = Car(1, 4, 2, "H", 5)
-car6 = Car(3, 4, 2, "V", 6)
-car7 = Car(0, 6, 2, "H", 7)
-car8 = Car(3, 6, 2, "V", 8)
-car9 = Car(4, 6, 2, "H", 9)
-car10 = Car(0, 7, 2, "V", 10)
-car11 = Car(4, 7, 2, "V", 11)
-car12 = Car(5, 8, 2, "H", 12)
-car13 = Car(7, 8, 2, "H", 13)
-car14 = Car(1, 0, 3, "H", 14)
-car15 = Car(5, 0, 3, "V", 15)
-car16 = Car(3, 1, 3, "V", 16)
-car17 = Car(6, 1, 3, "H", 17)
-car18 = Car(8, 2, 3, "V", 18)
-car19 = Car(5, 3, 3, "H", 19)
-car20 = Car(2, 5, 3, "V", 20)
-car21 = Car(5, 5, 3, "H", 21)
-car22 = Car(8, 5, 3, "V", 22)
-car23 = Car(1, 8, 3, "H", 23)
+car5 = Car(3, 4, 2, "V", 5)
+car6 = Car(0, 6, 2, "H", 6)
+car7 = Car(3, 6, 2, "V", 7)
+car8 = Car(4, 6, 2, "V", 8)
+car9 = Car(0, 7, 2, "V", 9)
+car10 = Car(4, 7, 2, "V", 10)
+car11 = Car(5, 8, 2, "H", 11)
+car12 = Car(7, 8, 2, "H", 12)
+car13 = Car(1, 0, 3, "H", 13)
+car14 = Car(5, 0, 3, "V", 14)
+car15 = Car(3, 1, 3, "V", 15)
+car16 = Car(6, 1, 3, "H", 16)
+car17 = Car(8, 2, 3, "V", 17)
+car18 = Car(5, 3, 3, "H", 18)
+car19 = Car(2, 5, 3, "V", 19)
+car20 = Car(5, 5, 3, "H", 20)
+car21 = Car(8, 5, 3, "V", 21)
+car22 = Car(1, 8, 3, "H", 22)
 
-board4 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car 10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23]
+board4 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
 
 BOARD5
 
@@ -133,4 +132,3 @@ car23 = Truck (6, 0) V,
 car24 = Truck (6, 4) V,
 car25 = Truck (6, 5) H,
 car26 = Truck (8, 1) H,
-
