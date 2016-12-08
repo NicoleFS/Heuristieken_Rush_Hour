@@ -32,10 +32,10 @@ board2 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, ca
 
 BOARD3
 
-car1 = Car(1, 2, 2, "H", 1)
+car1 = Car(0, 2, 2, "H", 1)
 car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(2, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "H", 4)
+car3 = Car(1, 1, 2, "H", 3)
+car4 = Car(3, 1, 2, "V", 4)
 car5 = Car(4, 1, 2, "H", 5)
 car6 = Car(2, 2, 2, "V", 6)
 car7 = Car(5, 2, 2, "V", 7)
@@ -102,7 +102,7 @@ car22 = Car(5, 4, 3, "V", 22)
 car23 = Car(8, 4, 3, "V", 23)
 car24 = Car(5, 7, 3, "H", 24)
 
-board5 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car 10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
+board5 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
 
 BOARD6
 
