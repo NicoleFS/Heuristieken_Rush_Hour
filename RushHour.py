@@ -369,7 +369,7 @@ class Game(object):
 
         # self.queue.put(self.grid.copy())
         moves = 0
-        while self.grid[self.dimension - 1, int(self.dimension / 2 - 1)] != 1:
+        while self.grid[self.dimension - 1, self.cars[0].y] != 1:
             self.grid = self.gridQueue.get()
             self.cars = self.carsQueue.get()
             # print "Removing grid from queue:"
