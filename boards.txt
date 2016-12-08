@@ -10,7 +10,7 @@ car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
 
-board1 = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 BOARD2
 
@@ -28,7 +28,7 @@ car11 = Car(4, 4, 2, "H", 11)
 car12 = Car(4, 5, 2, "H", 12)
 car13 = Car(5, 1, 3, "V", 13)
 
-board2 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
 
 BOARD3
 
@@ -46,7 +46,7 @@ car11 = Car(2, 4, 2, "V", 11)
 car12 = Car(4, 4, 2, "H", 12)
 car13 = Car(3, 0, 3, "H", 13)
 
-board3 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car 10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
 
 BOARD4
 
@@ -73,13 +73,13 @@ car20 = Car(5, 5, 3, "H", 20)
 car21 = Car(8, 5, 3, "V", 21)
 car22 = Car(1, 8, 3, "H", 22)
 
-board4 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
 
 BOARD5
 
 car1 = Car(6, 4, 2, "H", 1)
-car2 = Car(6, 0, 2, "V", 2)
-car3 = Car(7, 0, 2, "V", 3)
+car2 = Car(5, 0, 2, "V", 2)
+car3 = Car(6, 0, 2, "V", 3)
 car4 = Car(7, 1, 2, "H", 4)
 car5 = Car(4, 2, 2, "H", 5)
 car6 = Car(6, 2, 2, "V", 6)
@@ -92,9 +92,9 @@ car12 = Car(6, 6, 2, "H", 12)
 car13 = Car(0, 7, 2, "V", 13)
 car14 = Car(1, 7, 2, "V", 14)
 car15 = Car(2, 7, 2, "H", 15)
-car16 = Car(4, 4, 2, "V", 16)
-car17 = Car(8, 7, 2, "V", 17)
-car18 = Car(2, 8, 2, "H", 18)
+car16 = Car(2, 8, 2, "H", 16)
+car17 = Car(4, 7, 2, "V", 17)
+car18 = Car(8, 7, 2, "V", 18)
 car19 = Car(0, 0, 3, "H", 19)
 car20 = Car(3, 0, 3, "V", 20)
 car21 = Car(2, 4, 3, "H", 21)
@@ -102,7 +102,7 @@ car22 = Car(5, 4, 3, "V", 22)
 car23 = Car(8, 4, 3, "V", 23)
 car24 = Car(5, 7, 3, "H", 24)
 
-board5 = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
 
 BOARD6
 
@@ -128,7 +128,9 @@ car19 = Truck (1, 1, 3, "H", 19)
 car20 = Truck (3, 3, 3, "V", 20)
 car21 = Truck (6, 3, 3, "H", 21)
 car22 = Truck (8, 5, 3, "V", 22)
-car23 = Truck (6, 0) V,
-car24 = Truck (6, 4) V,
-car25 = Truck (6, 5) H,
-car26 = Truck (8, 1) H,
+car23 = Truck (6, 0, 3, "V", 23)
+car24 = Truck (6, 4, 3, "V", 24)
+car25 = Truck (6, 5, 3, "H", 25)
+car26 = Truck (8, 1, 3, "H", 26)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26]
