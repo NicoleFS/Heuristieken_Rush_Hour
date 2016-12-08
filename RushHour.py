@@ -304,62 +304,36 @@ class Game(object):
         already in the archive, if so the move is undone. If it a new unique board state after a move the cars and the
         grid are put in queues and the move is undone to be able to check the oposite direction"""
         for car in self.cars:
-            # print car.id
-            # print "Car coordinate ", car.x, car.y
-            # print "Checking up"
             if self.canMoveUp(car):
                 a = Game.checkMove(self)
                 self.moveUp(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    # print "Putting grid in queue:"
-                    # print self.grid.T
                     self.putinQueue()
-                # else:
-                    # print "This grid is already in the queue:"
-                    # print self.grid.T
                 self.moveDown(car)
 
-            # print "Checking down"
             if self.canMoveDown(car):
                 a = Game.checkMove(self)
                 self.moveDown(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    # print "Putting grid in queue:"
-                    # print self.grid.T
                     self.putinQueue()
-                # else:
-                    # print "This grid is already in the queue:"
-                    # print self.grid.T
                 self.moveUp(car)
 
-            # print "Checking right"
             if self.canMoveRight(car):
                 a = Game.checkMove(self)
                 self.moveRight(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    # print "Putting grid in queue:"
-                    # print self.grid.T
                     self.putinQueue()
-                # else:
-                    # print "This grid is already in the queue:"
-                    # print self.grid.T
                 self.moveLeft(car)
 
-            # print "Checking left"
             if Game.canMoveLeft(self, car):
                 a = Game.checkMove(self)
                 self.moveLeft(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    # print "Putting grid in queue:"
-                    # print self.grid.T
                     self.putinQueue()
-                # else:
-                    # print "This grid is already in the queue:"
-                    # print self.grid.T
                 self.moveRight(car)
 
     def deque(self):
@@ -382,7 +356,7 @@ class Game(object):
             # print self.queue.queue
             # print "___________________"
             moves += 1
-            print moves
+            # print moves
         print "End of loop"
         print self.grid.T
         print "finished in", moves, "moves"
@@ -395,32 +369,24 @@ class Game(object):
         # Stop animation when done.
         anim.done()
 
-car1 = Car(1, 4, 2, "H", 1)
-car2 = Car(0, 0, 2, "V", 2)
-car3 = Car(0, 3, 2, "H", 3)
-car4 = Car(0, 4, 2, "V", 4)
-car5 = Car(3, 4, 2, "V", 5)
-car6 = Car(0, 6, 2, "H", 6)
-car7 = Car(3, 6, 2, "V", 7)
-car8 = Car(4, 6, 2, "H", 8)
-car9 = Car(0, 7, 2, "V", 9)
-car10 = Car(4, 7, 2, "V", 10)
-car11 = Car(5, 8, 2, "H", 11)
-car12 = Car(7, 8, 2, "H", 12)
-car13 = Car(1, 0, 3, "H", 13)
-car14 = Car(5, 0, 3, "V", 14)
-car15 = Car(3, 1, 3, "V", 15)
-car16 = Car(6, 1, 3, "H", 16)
-car17 = Car(8, 2, 3, "V", 17)
-car18 = Car(5, 3, 3, "H", 18)
-car19 = Car(2, 5, 3, "V", 19)
-car20 = Car(5, 5, 3, "H", 20)
-car21 = Car(8, 5, 3, "V", 21)
-car22 = Car(1, 8, 3, "H", 22)
+car1 = Car(1, 2, 2, "H", 1)
+car2 = Car(1, 0, 2, "H", 2)
+car3 = Car(2, 1, 2, "H", 3)
+car4 = Car(3, 1, 2, "H", 4)
+car5 = Car(4, 1, 2, "H", 5)
+car6 = Car(2, 2, 2, "V", 6)
+car7 = Car(5, 2, 2, "V", 7)
+car8 = Car(0, 3, 2, "H", 8)
+car9 = Car(3, 3, 2, "H", 9)
+car10 = Car(0, 4, 2, "V", 10)
+car11 = Car(2, 4, 2, "V", 11)
+car12 = Car(4, 4, 2, "H", 12)
+car13 = Car(3, 0, 3, "H", 13)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]#, car14, car15, car16, car17, car18, car19, car20, car21, car22]
 print "Starting"
-game = Game(9, cars)
+game = Game(6, cars)
 game.deque()
 
 # runSimulation(game)
