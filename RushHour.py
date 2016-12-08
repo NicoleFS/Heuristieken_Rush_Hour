@@ -11,6 +11,7 @@ import visualize_rush_lepps
 import pylab
 import math
 import Queue as QueueClass
+import copy
 
 class Car(object):
     """
@@ -286,9 +287,11 @@ class Game(object):
 
     def putinQueue(self):
         self.gridQueue.put(self.grid.copy())
-        self.carsQueue.put(self.cars)
+        self.carsQueue.put(copy.deepcopy(self.cars))
 
     def checkMove(self):
+        """Checks if a move can be made by trying to put in a set. If the length of the set does not change it means
+        there is a duplicate. Retruns the length of the set after trying to put the board state in the set"""
         hash = ""
         for i in range(len(self.grid)):
             for j in range(len(self.grid[i])):
@@ -297,20 +300,23 @@ class Game(object):
         return len(self.stateSet)
 
     def queueAllPossibleMoves(self):
+        """ for every car all directions are checked. If a car can move in a certain direction it is checked if it is
+        already in the archive, if so the move is undone. If it a new unique board state after a move the cars and the
+        grid are put in queues and the move is undone to be able to check the oposite direction"""
         for car in self.cars:
-            print car.id
-            print "Car coordinate ", car.x, car.y
+            # print car.id
+            # print "Car coordinate ", car.x, car.y
             # print "Checking up"
             if self.canMoveUp(car):
                 a = Game.checkMove(self)
                 self.moveUp(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    print "Putting grid in queue:"
+                    # print "Putting grid in queue:"
                     # print self.grid.T
                     self.putinQueue()
-                else:
-                    print "This grid is already in the queue:"
+                # else:
+                    # print "This grid is already in the queue:"
                     # print self.grid.T
                 self.moveDown(car)
 
@@ -320,11 +326,11 @@ class Game(object):
                 self.moveDown(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    print "Putting grid in queue:"
+                    # print "Putting grid in queue:"
                     # print self.grid.T
                     self.putinQueue()
-                else:
-                    print "This grid is already in the queue:"
+                # else:
+                    # print "This grid is already in the queue:"
                     # print self.grid.T
                 self.moveUp(car)
 
@@ -334,11 +340,11 @@ class Game(object):
                 self.moveRight(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    print "Putting grid in queue:"
+                    # print "Putting grid in queue:"
                     # print self.grid.T
                     self.putinQueue()
-                else:
-                    print "This grid is already in the queue:"
+                # else:
+                    # print "This grid is already in the queue:"
                     # print self.grid.T
                 self.moveLeft(car)
 
@@ -348,11 +354,11 @@ class Game(object):
                 self.moveLeft(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    print "Putting grid in queue:"
+                    # print "Putting grid in queue:"
                     # print self.grid.T
                     self.putinQueue()
-                else:
-                    print "This grid is already in the queue:"
+                # else:
+                    # print "This grid is already in the queue:"
                     # print self.grid.T
                 self.moveRight(car)
 
@@ -362,17 +368,23 @@ class Game(object):
         print "\n"
 
         # self.queue.put(self.grid.copy())
+        moves = 0
         while self.grid[self.dimension - 1, int(self.dimension / 2 - 1)] != 1:
             self.grid = self.gridQueue.get()
             self.cars = self.carsQueue.get()
-            print "Removing grid from queue:"
-            print self.grid.T
+            # print "Removing grid from queue:"
+            # print self.grid.T
+            # print "Removing cars from queue"
+            # for car in cars:
+                # print car.id, car.x, car.y
             self.queueAllPossibleMoves()
             # print "______QUEUE________"
             # print self.queue.queue
             # print "___________________"
-
+            moves += 1
         print "End of loop"
+        print self.grid.T
+        print "finished in", moves, "moves"
 
     def runSimulation(game):
 
