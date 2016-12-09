@@ -79,6 +79,7 @@ class Game(object):
                     self.grid[x,y] = car.id
                     x += 1
                 else:
+                    print car.id
                     print "Error, car cannot be placed on a tile that contains another car"
 
         elif car.orientation == "V":
@@ -87,6 +88,7 @@ class Game(object):
                     self.grid[x,y] = car.id
                     y += 1
                 else:
+                    print car.id
                     print "Error, car cannot be placed on a tile that contains another car"
                     # return self.grid
 
@@ -341,22 +343,15 @@ class Game(object):
         print self.grid.T
         print "\n"
 
-        # self.queue.put(self.grid.copy())
         moves = 0
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
             self.grid = self.gridQueue.get()
             self.cars = self.carsQueue.get()
-            # print "Removing grid from queue:"
-            # print self.grid.T
-            # print "Removing cars from queue"
-            # for car in cars:
-                # print car.id, car.x, car.y
+
             self.queueAllPossibleMoves()
-            # print "______QUEUE________"
-            # print self.queue.queue
-            # print "___________________"
+
             moves += 1
-            # print moves
+
         print "End of loop"
         print self.grid.T
         print "finished in", moves, "moves"
@@ -369,24 +364,55 @@ def runSimulation(game):
     # Stop animation when done.
     anim.done()
 
-car1 = Car(0, 2, 2, "H", 1)
-car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(1, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "V", 4)
-car5 = Car(4, 1, 2, "H", 5)
-car6 = Car(2, 2, 2, "V", 6)
-car7 = Car(5, 2, 2, "V", 7)
-car8 = Car(0, 3, 2, "H", 8)
-car9 = Car(3, 3, 2, "H", 9)
-car10 = Car(0, 4, 2, "V", 10)
-car11 = Car(2, 4, 2, "V", 11)
-car12 = Car(4, 4, 2, "H", 12)
-car13 = Car(3, 0, 3, "H", 13)
+car1 = Car(2, 5, 2, "H", 1)
+car2 = Car(0, 0, 2, "V", 2)
+car3 = Car(6, 0, 2, "V", 3)
+car4 = Car(10, 0, 2, "H", 4)
+car5 = Car(5, 1, 2, "V", 5)
+car6 = Car(10, 1, 2, "V", 6)
+car7 = Car(11, 1, 2, "V", 7)
+car8 = Car(3, 2, 2, "H", 8)
+car9 = Car(7, 2, 2, "H", 9)
+car10 = Car(5, 3, 2, "V", 10)
+car11 = Car(7, 3, 2, "H", 11)
+car12 = Car(9, 3, 2, "H", 12)
+car13 = Car(4, 5, 2, "V", 13)
+car14 = Car(5, 5, 2, "V", 14)
+car15 = Car(3, 6, 2, "V", 15)
+car16 = Car(7, 6, 2, "V", 16)
+car17 = Car(9, 6, 2, "V", 17)
+car18 = Car(10, 6, 2, "H", 18)
+car19 = Car(4, 7, 2, "H", 19)
+car20 = Car(10, 7, 2, "H", 20)
+car21 = Car(0, 8, 2, "H", 21)
+car22 = Car(2, 8, 2, "V", 22)
+car23 = Car(11, 8, 2, "V", 23)
+car24 = Car(8, 9, 2, "H", 24)
+car25 = Car(9, 10, 2, "V", 25)
+car26 = Car(11, 10, 2, "V", 26)
+car27 = Car(1, 11, 2, "H", 27)
+car28 = Car(7, 11, 2, "H", 28)
+car29 = Car(7, 0, 3, "H", 29)
+car30 = Car(0, 2, 3, "H", 30)
+car31 = Car(6, 2, 3, "V", 31)
+car32 = Car(0, 3, 3, "V", 32)
+car33 = Car(1, 3, 3, "V", 33)
+car34 = Car(2, 4, 3, "H", 34)
+car35 = Car(7, 4, 3, "H", 35)
+car36 = Car(0, 6, 3, "H", 36)
+car37 = Car(6, 6, 3, "V", 37)
+car38 = Car(0, 7, 3, "H", 38)
+car39 = Car(3, 8, 3, "H", 39)
+car40 = Car(7, 8, 3, "H", 40)
+car41 = Car(3, 9, 3, "H", 41)
+car42 = Car(6, 9, 3, "V", 42)
+car43 = Car(10, 9, 3, "V", 43)
+car44 = Car(3, 11, 3, "H", 44)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26, car27, car28, car29, car30, car31, car32, car33, car34, car35, car36, car37, car38, car39, car40, car41, car42, car43, car44]
 
 print "Starting"
-game = Game(6, cars)
+game = Game(12, cars)
 game.deque()
 
 runSimulation(game)
