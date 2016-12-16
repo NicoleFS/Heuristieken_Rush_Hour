@@ -13,6 +13,9 @@ import math
 import Queue as QueueClass
 import copy
 
+#make board instance, put that object in the set
+#use__cmp__ for the priority queue
+
 class Car(object):
     """
     An object which can move around the board.
@@ -28,6 +31,12 @@ class Car(object):
         self.length = length
         self.id = id
 
+class Board(object):
+
+    def __init__(self, dimension):
+        self.dimension = dimension
+        self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
+
 class Game(object):
     """
     The state of the board (grid), which changes after each movement of a car.
@@ -37,18 +46,18 @@ class Game(object):
         Initializes the given grid and creates an empty array, to be filled with cars.
         :param playboard: The given empty grid.
         """
-        self.dimension = dimension
-        self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
+        self.grid = Board(dimension)
         self.cars = cars
 
         for car in self.cars:
             self.addCarToGrid(car)
 
-        self.gridQueue = QueueClass.Queue(maxsize=0)
-        self.carsQueue = QueueClass.Queue(maxsize=0)
+        self.gridQueue = QueueClass.PriorityQueue()
+        self.carsQueue = QueueClass.PriorityQueue(maxsize=0)
 
-        self.gridQueue.put(self.grid.copy())
-        self.carsQueue.put(self.cars)
+        self.gridQueue.put((1, self.grid.copy()))
+        print self.gridQueue.queue
+        # self.carsQueue.put(self.cars)
 
         # create counter to count total number of moves needed to win the game
         self.moves = 0
@@ -286,19 +295,44 @@ class Game(object):
                 return False
 
     def calculateCost(self, car):
+
         # initial cost for all cars
         cost = 500
 
-        # checks if the car is in line of the red car
-        if car.y == self.cars[0].y:
-            cost += -100
+        # checks if any part of a vertical car is in line and in front of the red car
+        if car.orientation == "V" and car.x > self.cars[0].x:
+            if car.y == self.cars[0].y:
+                cost -= 100
+            if car.y - 1 == self.cars[0].y:
+                cost -= 100
+            if car.length == 3:
+                if car.y - 2 == self.cars[0].y:
+                    cost -= 100
 
-        # checks if any part of a vertical car is in line of the 
+        # checks for the red car
+        if car.id == 1:
+            cost -= 200
 
+        # gives trucks priority
+        if car.length == 3:
+            cost -= 200
+
+        # gives cars at the left of the board lower priority
+        if car.x < self.dimension/2:
+            cost += 100
+
+        return cost
 
     def putinQueue(self):
-        self.gridQueue.put(self.grid.copy())
-        self.carsQueue.put(copy.deepcopy(self.cars))
+        q = QueueClass.PriorityQueue(maxsize=0)
+        # print self.calculateCost(car)
+        temp = self.grid.copy()
+        b = np.zeros(shape=(6, 6), dtype=np.int)
+        # print temp
+        self.gridQueue.put((1, b))
+        #q.put((1,b))
+        # self.gridQueue.put((2, "halo"))
+        # self.carsQueue.put((1, copy.deepcopy(self.cars)))
 
     def checkMove(self):
         """Checks if a move can be made by trying to put in a set. If the length of the set does not change it means
@@ -314,13 +348,14 @@ class Game(object):
         """ for every car all directions are checked. If a car can move in a certain direction it is checked if it is
         already in the archive, if so the move is undone. If it a new unique board state after a move the cars and the
         grid are put in queues and the move is undone to be able to check the oposite direction"""
+
         for car in self.cars:
             if self.canMoveUp(car):
                 a = Game.checkMove(self)
                 self.moveUp(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.putinQueue()
+                    self.putinQueue(car)
                 self.moveDown(car)
 
             if self.canMoveDown(car):
@@ -328,7 +363,7 @@ class Game(object):
                 self.moveDown(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.putinQueue()
+                    self.putinQueue(car)
                 self.moveUp(car)
 
             if self.canMoveRight(car):
@@ -336,7 +371,7 @@ class Game(object):
                 self.moveRight(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.putinQueue()
+                    self.putinQueue(car)
                 self.moveLeft(car)
 
             if Game.canMoveLeft(self, car):
@@ -344,7 +379,7 @@ class Game(object):
                 self.moveLeft(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.putinQueue()
+                    self.putinQueue(car)
                 self.moveRight(car)
 
     def deque(self):
@@ -356,10 +391,11 @@ class Game(object):
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
             self.grid = self.gridQueue.get()
             self.cars = self.carsQueue.get()
-
+            print "queueing"
             self.queueAllPossibleMoves()
 
             moves += 1
+            print moves
 
         print "End of loop"
         print self.grid.T
@@ -391,6 +427,6 @@ cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car1
 
 print "Starting"
 game = Game(6, cars)
-game.deque()
+game.putinQueue()
 
 #runSimulation(game)
