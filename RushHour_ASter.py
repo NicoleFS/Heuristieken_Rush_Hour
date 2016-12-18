@@ -12,6 +12,7 @@ import pylab
 import math
 import Queue as QueueClass
 import copy
+import time
 
 class PQueueItem(object):
     def __init__(self, priority, cars, grid):
@@ -61,7 +62,7 @@ class Game(object):
 
         self.priority = 500
 
-        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
+        queueItem = PQueueItem(self.priority, self.cars, self.grid)
         self.queue.put(queueItem)
         # self.gridQueue.put((self.priority, self.grid.copy()))
         # print self.gridQueue.queue
@@ -346,7 +347,7 @@ class Game(object):
         #q.put((1,b))
         # self.gridQueue.put((2, "halo"))
         # self.carsQueue.put((self.priority, copy.deepcopy(self.cars)))
-        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
+        queueItem = PQueueItem(self.priority, self.cars, self.grid)
         self.queue.put(queueItem)
 
     def checkMove(self):
@@ -398,28 +399,27 @@ class Game(object):
                 self.moveRight(car)
 
     def deque(self):
+        startTime = time.clock()
         print "Starting grid:\n"
         print self.grid.T
         print "\n"
 
         moves = 0
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
-            print "dequeing"
+            # print "dequeing"
             queueItem = self.queue.get()
-            nextBoard = queueItem.grid
-            self.grid = nextBoard
-            nextCars = queueItem.cars
-            print nextCars
-            self.cars = nextCars
-            print "queueing"
+            self.grid = queueItem.grid
+            self.cars = queueItem.cars
+            # print "queueing"
             self.queueAllPossibleMoves()
 
             moves += 1
-            print moves
-
+            # print moves
+        timeDuration = time.clock() - startTime
         print "End of loop"
         print self.grid.T
         print "finished in", moves, "moves"
+        print timeDuration
 
 def runSimulation(game):
 
@@ -429,21 +429,32 @@ def runSimulation(game):
     # Stop animation when done.
     anim.done()
 
-car1 = Car(0, 2, 2, "H", 1)
-car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(1, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "V", 4)
-car5 = Car(4, 1, 2, "H", 5)
-car6 = Car(2, 2, 2, "V", 6)
-car7 = Car(5, 2, 2, "V", 7)
-car8 = Car(0, 3, 2, "H", 8)
-car9 = Car(3, 3, 2, "H", 9)
-car10 = Car(0, 4, 2, "V", 10)
-car11 = Car(2, 4, 2, "V", 11)
-car12 = Car(4, 4, 2, "H", 12)
-car13 = Car(3, 0, 3, "H", 13)
+car1 = Car(6, 4, 2, "H", 1)
+car2 = Car(5, 0, 2, "V", 2)
+car3 = Car(6, 0, 2, "V", 3)
+car4 = Car(7, 1, 2, "H", 4)
+car5 = Car(4, 2, 2, "H", 5)
+car6 = Car(6, 2, 2, "V", 6)
+car7 = Car(4, 3, 2, "H", 7)
+car8 = Car(7, 3, 2, "H", 8)
+car9 = Car(0, 5, 2, "V", 9)
+car10 = Car(2, 5, 2, "V", 10)
+car11 = Car(3, 6, 2, "H", 11)
+car12 = Car(6, 6, 2, "H", 12)
+car13 = Car(0, 7, 2, "V", 13)
+car14 = Car(1, 7, 2, "V", 14)
+car15 = Car(2, 7, 2, "H", 15)
+car16 = Car(2, 8, 2, "H", 16)
+car17 = Car(4, 7, 2, "V", 17)
+car18 = Car(8, 7, 2, "V", 18)
+car19 = Car(0, 0, 3, "H", 19)
+car20 = Car(3, 0, 3, "V", 20)
+car21 = Car(2, 4, 3, "H", 21)
+car22 = Car(5, 4, 3, "V", 22)
+car23 = Car(8, 4, 3, "V", 23)
+car24 = Car(5, 7, 3, "H", 24)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
 
 print "Starting"
 game = Game(6, cars)

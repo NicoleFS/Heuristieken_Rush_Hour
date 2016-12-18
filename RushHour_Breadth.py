@@ -467,21 +467,17 @@ def runSimulation(game):
     # stop animation when done
     anim.done()
 
-car1 = Car(0, 2, 2, "H", 1)
-car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(1, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "V", 4)
-car5 = Car(4, 1, 2, "H", 5)
-car6 = Car(2, 2, 2, "V", 6)
-car7 = Car(5, 2, 2, "V", 7)
-car8 = Car(0, 3, 2, "H", 8)
-car9 = Car(3, 3, 2, "H", 9)
-car10 = Car(0, 4, 2, "V", 10)
-car11 = Car(2, 4, 2, "V", 11)
-car12 = Car(4, 4, 2, "H", 12)
-car13 = Car(3, 0, 3, "H", 13)
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(2, 0, 3, "V", 2)
+car3 = Car(3, 0, 2, "H", 3)
+car4 = Car(5, 0, 3, "V", 4)
+car5 = Car(3, 3, 3, "V", 5)
+car6 = Car(4, 3, 2, "H", 6)
+car7 = Car(0, 4, 2, "V", 7)
+car8 = Car(1, 4, 2, "H", 8)
+car9 = Car(4, 5, 2, "H", 9)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 game = Game(6, cars)
 game.deque()
