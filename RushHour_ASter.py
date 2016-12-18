@@ -13,6 +13,15 @@ import math
 import Queue as QueueClass
 import copy
 
+class PQueueItem(object):
+    def __init__(self, priority, cars, grid):
+        self.priority = priority
+        self.cars = cars
+        self.grid = grid
+        return
+    def __cmp__(self, other):
+        return cmp(self.priority, other.priority)
+
 # make board instance, put that object in the set
 # use__cmp__ for the priority queue
 
@@ -47,12 +56,17 @@ class Game(object):
         for car in self.cars:
             self.addCarToGrid(car)
 
-        self.gridQueue = QueueClass.PriorityQueue()
-        self.carsQueue = QueueClass.PriorityQueue(maxsize=0)
+        self.queue = QueueClass.PriorityQueue()
+        # self.carsQueue = QueueClass.PriorityQueue(maxsize=0)
 
-        self.gridQueue.put((1, self.grid.copy()))
-        print self.gridQueue.queue
-        # self.carsQueue.put(self.cars)
+        self.priority = 500
+
+        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
+        self.queue.put(queueItem)
+        # self.gridQueue.put((self.priority, self.grid.copy()))
+        # print self.gridQueue.queue
+        # self.carsQueue.put((self.priority, copy.deepcopy(self.cars)))
+        # print self.carsQueue.queue
 
         # create counter to count total number of moves needed to win the game
         self.moves = 0
@@ -60,8 +74,9 @@ class Game(object):
         self.stateSet = set()
         # create list to store single board state
         self.stateList = []
-        # self.movableCars = []
+
     def __cmp__(self, other):
+        return cmp(self.priority, other.priority)
 
 
     def addCarToGrid(self, car):
@@ -320,16 +335,19 @@ class Game(object):
 
         return cost
 
-    def putinQueue(self):
-        q = QueueClass.PriorityQueue(maxsize=0)
+    def putinQueue(self, car):
+        # q = QueueClass.PriorityQueue(maxsize=0)
         # print self.calculateCost(car)
-        temp = self.grid.copy()
-        b = np.zeros(shape=(6, 6), dtype=np.int)
+        # temp = self.grid.copy()
+        self.priority = self.calculateCost(car)
+        # b = np.zeros(shape=(6, 6), dtype=np.int)
         # print temp
-        self.gridQueue.put((1, b))
+        # self.gridQueue.put((self.priority, temp))
         #q.put((1,b))
         # self.gridQueue.put((2, "halo"))
-        # self.carsQueue.put((1, copy.deepcopy(self.cars)))
+        # self.carsQueue.put((self.priority, copy.deepcopy(self.cars)))
+        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
+        self.queue.put(queueItem)
 
     def checkMove(self):
         """Checks if a move can be made by trying to put in a set. If the length of the set does not change it means
@@ -386,8 +404,13 @@ class Game(object):
 
         moves = 0
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
-            self.grid = self.gridQueue.get()
-            self.cars = self.carsQueue.get()
+            print "dequeing"
+            queueItem = self.queue.get()
+            nextBoard = queueItem.grid
+            self.grid = nextBoard
+            nextCars = queueItem.cars
+            print nextCars
+            self.cars = nextCars
             print "queueing"
             self.queueAllPossibleMoves()
 
@@ -424,6 +447,6 @@ cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car1
 
 print "Starting"
 game = Game(6, cars)
-game.putinQueue()
+game.deque()
 
 #runSimulation(game)
