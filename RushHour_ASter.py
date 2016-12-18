@@ -13,8 +13,8 @@ import math
 import Queue as QueueClass
 import copy
 
-#make board instance, put that object in the set
-#use__cmp__ for the priority queue
+# make board instance, put that object in the set
+# use__cmp__ for the priority queue
 
 class Car(object):
     """
@@ -31,12 +31,6 @@ class Car(object):
         self.length = length
         self.id = id
 
-class Board(object):
-
-    def __init__(self, dimension):
-        self.dimension = dimension
-        self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
-
 class Game(object):
     """
     The state of the board (grid), which changes after each movement of a car.
@@ -46,8 +40,9 @@ class Game(object):
         Initializes the given grid and creates an empty array, to be filled with cars.
         :param playboard: The given empty grid.
         """
-        self.grid = Board(dimension)
         self.cars = cars
+        self.dimension = dimension
+        self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
 
         for car in self.cars:
             self.addCarToGrid(car)
@@ -66,6 +61,8 @@ class Game(object):
         # create list to store single board state
         self.stateList = []
         # self.movableCars = []
+    def __cmp__(self, other):
+
 
     def addCarToGrid(self, car):
         """
