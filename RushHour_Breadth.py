@@ -460,8 +460,8 @@ class Game(object):
         print "Winning position:"
         print self.grid.T
         print "Number of moves needed to finish game: " + str(self.moves[self.gridToString()])
-        print "Number of iterations: " + str(iterations)
-        print "Seconds needed to run program: " + str(time_duration)
+        print "Number of iterations: ", iterations
+        print "Seconds needed to run program: ", time_duration
 
         path_state = self.gridToString()
         fastest_path = []
