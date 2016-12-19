@@ -64,12 +64,20 @@ class Game(object):
         queueItem = PQueueItem(self.priority, self.cars, self.grid)
         self.queue.put(queueItem)
 
-        # create counter to count total number of moves needed to win the game
-        self.moves = 0
         # create set to store board states
         self.stateSet = set()
         # create list to store single board state
         self.stateList = []
+
+        # create key of starting grid state
+        start = self.gridToString()
+
+        # create dictionary of grid state (key) paired to
+        # corresponding number of performed moves (value)
+        self.moves = {}
+
+        # set start key value
+        self.moves[start] = 0
 
     def __cmp__(self, other):
         return cmp(self.priority, other.priority)
@@ -339,52 +347,91 @@ class Game(object):
     def checkMove(self):
         """Checks if a move can be made by trying to put in a set. If the length of the set does not change it means
         there is a duplicate. Retruns the length of the set after trying to put the board state in the set"""
-        hash = ""
-        for i in range(len(self.grid)):
-            for j in range(len(self.grid[i])):
-                hash += str(self.grid[i][j])
-        self.stateSet.add(hash)
+        grid_string = self.gridToString()
+        self.stateSet.add(grid_string)
         return len(self.stateSet)
 
+    def gridToString(self):
+        """
+        Transforms the grid into a string of numbers, representing the state of the board.
+        :return: String representing state of board.
+        """
+
+        # create variable to store string in
+        hash = ""
+
+        # iterate through the grid and place every integer in the hash as a char, creating a string
+        for i in range(len(self.grid.T)):
+            for j in range(len(self.grid[i])):
+                hash += str(self.grid.T[i][j])
+        return hash
+
     def queueAllPossibleMoves(self):
-        """ for every car all directions are checked. If a car can move in a certain direction it is checked if it is
-        already in the archive, if so the move is undone. If it a new unique board state after a move the cars and the
-        grid are put in queues and the move is undone to be able to check the oposite direction"""
+            """ for every car all directions are checked. If a car can move in a certain direction it is checked if it is
+            already in the archive, if so the move is undone. If it a new unique board state after a move the cars and the
+            grid are put in queues and the move is undone to be able to check the oposite direction"""
 
-        for car in self.cars:
-            if self.canMoveUp(car):
-                a = Game.checkMove(self)
-                self.moveUp(car)
-                b = Game.checkMove(self)
-                if a != b:
-                    self.putinQueue(car)
-                self.moveDown(car)
+            parent_string = self.gridToString()
 
-            if self.canMoveDown(car):
-                a = Game.checkMove(self)
-                self.moveDown(car)
-                b = Game.checkMove(self)
-                if a != b:
-                    self.putinQueue(car)
-                self.moveUp(car)
+            for car in self.cars:
+                if self.canMoveUp(car):
+                    a = Game.checkMove(self)
+                    self.moveUp(car)
+                    b = Game.checkMove(self)
+                    if a != b:
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
 
-            if self.canMoveRight(car):
-                a = Game.checkMove(self)
-                self.moveRight(car)
-                b = Game.checkMove(self)
-                if a != b:
-                    self.putinQueue(car)
-                self.moveLeft(car)
+                        self.putinQueue(car)
 
-            if Game.canMoveLeft(self, car):
-                a = Game.checkMove(self)
-                self.moveLeft(car)
-                b = Game.checkMove(self)
-                if a != b:
-                    self.putinQueue(car)
-                self.moveRight(car)
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+                    self.moveDown(car)
+
+                if self.canMoveDown(car):
+                    a = Game.checkMove(self)
+                    self.moveDown(car)
+                    b = Game.checkMove(self)
+                    if a != b:
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+                    self.moveUp(car)
+
+                if self.canMoveRight(car):
+                    a = Game.checkMove(self)
+                    self.moveRight(car)
+                    b = Game.checkMove(self)
+                    if a != b:
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+                    self.moveLeft(car)
+
+                if Game.canMoveLeft(self, car):
+                    a = Game.checkMove(self)
+                    self.moveLeft(car)
+                    b = Game.checkMove(self)
+                    if a != b:
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+                    self.moveRight(car)
 
     def deque(self):
+
         startTime = time.clock()
         print "Starting grid:\n"
         print self.grid.T
@@ -401,46 +448,33 @@ class Game(object):
         timeDuration = time.clock() - startTime
         print "End of loop"
         print self.grid.T
+        print "Number of moves needed to finish game: " + str(self.moves[self.gridToString()])
         print "finished in", iteratrions, "iterations"
         print timeDuration
 
-def runSimulation(game):
+#def runSimulation(game):
 
     # Starts animation.
-    anim = visualize_rush_lepps.RushVisualization(game, 500)
+    #anim = visualize_rush_lepps.RushVisualization(game, 500)
 
     # Stop animation when done.
-    anim.done()
+    #anim.done()
 
-car1 = Car(6, 4, 2, "H", 1)
-car2 = Car(5, 0, 2, "V", 2)
-car3 = Car(6, 0, 2, "V", 3)
-car4 = Car(7, 1, 2, "H", 4)
-car5 = Car(4, 2, 2, "H", 5)
-car6 = Car(6, 2, 2, "V", 6)
-car7 = Car(4, 3, 2, "H", 7)
-car8 = Car(7, 3, 2, "H", 8)
-car9 = Car(0, 5, 2, "V", 9)
-car10 = Car(2, 5, 2, "V", 10)
-car11 = Car(3, 6, 2, "H", 11)
-car12 = Car(6, 6, 2, "H", 12)
-car13 = Car(0, 7, 2, "V", 13)
-car14 = Car(1, 7, 2, "V", 14)
-car15 = Car(2, 7, 2, "H", 15)
-car16 = Car(2, 8, 2, "H", 16)
-car17 = Car(4, 7, 2, "V", 17)
-car18 = Car(8, 7, 2, "V", 18)
-car19 = Car(0, 0, 3, "H", 19)
-car20 = Car(3, 0, 3, "V", 20)
-car21 = Car(2, 4, 3, "H", 21)
-car22 = Car(5, 4, 3, "V", 22)
-car23 = Car(8, 4, 3, "V", 23)
-car24 = Car(5, 7, 3, "H", 24)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24]
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(2, 0, 3, "V", 2)
+car3 = Car(3, 0, 2, "H", 3)
+car4 = Car(5, 0, 3, "V", 4)
+car5 = Car(3, 3, 3, "V", 5)
+car6 = Car(4, 3, 2, "H", 6)
+car7 = Car(0, 4, 2, "V", 7)
+car8 = Car(1, 4, 2, "H", 8)
+car9 = Car(4, 5, 2, "H", 9)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 print "Starting"
-game = Game(9, cars)
+game = Game(6, cars)
 game.deque()
 
 #runSimulation(game)

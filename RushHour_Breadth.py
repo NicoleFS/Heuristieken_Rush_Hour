@@ -472,7 +472,7 @@ class Game(object):
             path_state = path_next
 
         print fastest_path
-        print self.grid.T
+        #print self.grid.T
 
 
 def runSimulation(game):
