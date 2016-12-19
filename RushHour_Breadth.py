@@ -79,6 +79,7 @@ class Game(object):
 
         self.path_state = start
 
+        self.start_state = self.gridToString()
         # create dictionary of grid state (key) paired to
         # corresponding number of performed moves (value)
         self.moves = {}
@@ -323,6 +324,7 @@ class Game(object):
         for i in range(len(self.grid.T)):
             for j in range(len(self.grid[i])):
                 hash += str(self.grid.T[i][j])
+                hash += ","
         return hash
 
     def checkMove(self):
@@ -432,7 +434,7 @@ class Game(object):
         # start clock
         start_time = time.clock()
 
-        start_state = self.gridToString()
+        # start_state = self.gridToString()
 
         # print starting grid
         print "Starting grid:"
@@ -463,17 +465,31 @@ class Game(object):
         print "Number of iterations: " + str(iterations)
         print "Seconds needed to run program: " + str(time_duration)
 
+        # print the board states for the fastest path from start to finish
+        self.makePath()
+
+    def makePath(self):
         path_state = self.gridToString()
         fastest_path = []
-        while path_state != start_state:
+        fastest_path.append(path_state)
+        while path_state != self.start_state:
             path_next = self.path.get(path_state)
-            print path_next
             fastest_path.append(path_next)
             path_state = path_next
+        fastest_path.append(self.start_state)
 
-        print fastest_path
-        #print self.grid.T
-
+        for path in reversed(fastest_path):
+            board_path = []
+            y = 0
+            path_split = path.split(",")
+            for i in range(1, self.dimension + 1):
+                x = self.dimension * i
+                path_row = path_split[y:x]
+                board_path.append(path_row)
+                y = x
+            board_path = np.vstack(board_path)
+            board_path = np.array(board_path, dtype=int)
+            print board_path
 
 def runSimulation(game):
 
@@ -483,17 +499,21 @@ def runSimulation(game):
     # stop animation when done
     anim.done()
 
-car1 = Car(3, 2, 2, "H", 1)
-car2 = Car(2, 0, 3, "V", 2)
-car3 = Car(3, 0, 2, "H", 3)
-car4 = Car(5, 0, 3, "V", 4)
-car5 = Car(3, 3, 3, "V", 5)
-car6 = Car(4, 3, 2, "H", 6)
-car7 = Car(0, 4, 2, "V", 7)
-car8 = Car(1, 4, 2, "H", 8)
-car9 = Car(4, 5, 2, "H", 9)
+car1 = Car(2, 2, 2, "H", 1)
+car2 = Car(2, 0, 2, "H", 2)
+car3 = Car(4, 0, 2, "H", 3)
+car4 = Car(1, 1, 2, "H", 4)
+car5 = Car(3, 1, 2, "H", 5)
+car6 = Car(4, 2, 2, "V", 6)
+car7 = Car(0, 3, 2, "H", 7)
+car8 = Car(2, 3, 2, "H", 8)
+car9 = Car(0, 4, 2, "V", 9)
+car10 = Car(3, 4, 2, "V", 10)
+car11 = Car(4, 4, 2, "H", 11)
+car12 = Car(4, 5, 2, "H", 12)
+car13 = Car(5, 1, 3, "V", 13)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
 
 game = Game(6, cars)
 game.deque()
