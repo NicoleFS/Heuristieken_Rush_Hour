@@ -77,6 +77,8 @@ class Game(object):
         # create key of starting grid state
         start = self.gridToString()
 
+        self.path_state = start
+
         # create dictionary of grid state (key) paired to
         # corresponding number of performed moves (value)
         self.moves = {}
@@ -320,7 +322,7 @@ class Game(object):
         # iterate through the grid and place every integer in the hash as a char, creating a string
         for i in range(len(self.grid.T)):
             for j in range(len(self.grid[i])):
-                hash += str(self.grid[i][j])
+                hash += str(self.grid.T[i][j])
         return hash
 
     def checkMove(self):
@@ -430,6 +432,8 @@ class Game(object):
         # start clock
         start_time = time.clock()
 
+        start_state = self.gridToString()
+
         # print starting grid
         print "Starting grid:"
         print self.grid.T
@@ -459,6 +463,18 @@ class Game(object):
         print "Number of iterations: " + str(iterations)
         print "Seconds needed to run program: " + str(time_duration)
 
+        path_state = self.gridToString()
+        fastest_path = []
+        while path_state != start_state:
+            path_next = self.path.get(path_state)
+            print path_next
+            fastest_path.append(path_next)
+            path_state = path_next
+
+        print fastest_path
+        print self.grid.T
+
+
 def runSimulation(game):
 
     # start animation
@@ -481,4 +497,4 @@ cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 game = Game(6, cars)
 game.deque()
-runSimulation(game)
+#runSimulation(game)
