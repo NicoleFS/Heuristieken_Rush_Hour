@@ -82,7 +82,10 @@ class Game(object):
     def __cmp__(self, other):
         return cmp(self.priority, other.priority)
 
+<<<<<<< .merge_file_EWVIaw
+=======
 
+>>>>>>> .merge_file_aqUrdb
     def addCarToGrid(self, car):
         """
         Fill the board with a given car.
@@ -315,6 +318,29 @@ class Game(object):
         # initial cost for all cars
         cost = 500
 
+<<<<<<< .merge_file_EWVIaw
+        # # checks if any part of a vertical car is in line and in front of the red car
+        # if car.orientation == "V" and car.x > self.cars[0].x:
+        #     if car.y == self.cars[0].y:
+        #         cost -= 200
+        #     if car.y - 1 == self.cars[0].y:
+        #         cost -= 200
+        #     if car.length == 3:
+        #         if car.y - 2 == self.cars[0].y:
+        #             cost -= 200
+        #
+        # # checks for the red car
+        # if car.id == 1:
+        #     cost -= 200
+        #
+        # # gives trucks priority
+        # if car.length == 3:
+        #     cost -= 200
+        #
+        # # gives cars at the left of the board lower priority
+        # if car.x < self.dimension/2:
+        #     cost += 100
+=======
         # checks if any part of a vertical car is in line and in front of the red car
         if car.orientation == "V" and car.x > self.cars[0].x:
             if car.y == self.cars[0].y:
@@ -336,6 +362,7 @@ class Game(object):
         # gives cars at the left of the board lower priority
         if car.x < self.dimension/2:
             cost += 100
+>>>>>>> .merge_file_aqUrdb
 
         return cost
 
@@ -460,6 +487,17 @@ class Game(object):
     # Stop animation when done.
     #anim.done()
 
+<<<<<<< .merge_file_EWVIaw
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(3, 0, 2, "H", 2)
+car3 = Car(4, 3, 2, "H", 3)
+car4 = Car(0, 4, 2, "V", 4)
+car5 = Car(1, 4, 2, "H", 5)
+car6 = Car(4, 5, 2, "H", 6)
+car7 = Car(2, 0, 3, "V", 7)
+car8 = Car(5, 0, 3, "V", 8)
+car9 = Car(3, 3, 3, "V", 9)
+=======
 
 car1 = Car(3, 2, 2, "H", 1)
 car2 = Car(2, 0, 3, "V", 2)
@@ -470,6 +508,7 @@ car6 = Car(4, 3, 2, "H", 6)
 car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
+>>>>>>> .merge_file_aqUrdb
 
 cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
