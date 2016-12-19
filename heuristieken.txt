@@ -1,0 +1,107 @@
+ def calculateCost(self, car):
+
+        # initial cost for all cars
+        cost = 500
+
+        # checks if any part of a vertical car is in line and in front of the red car
+        if car.orientation == "V" and car.x > self.cars[0].x:
+            if car.y == self.cars[0].y:
+                cost -= 100
+            if car.y - 1 == self.cars[0].y:
+                cost -= 100
+            if car.length == 3:
+                if car.y - 2 == self.cars[0].y:
+                    cost -= 100
+
+        # checks for the red car
+        if car.id == 1:
+            cost -= 200
+
+        # gives trucks priority
+        if car.length == 3:
+            cost -= 200
+
+        # gives cars at the left of the board lower priority
+        if car.x < self.dimension/2:
+            cost += 100
+
+        return cost
+
+Board 1: Number of moves needed to finish game: 203
+finished in 3506 iterations
+6.181124
+
+Board 2: Number of moves needed to finish game: 39
+finished in 341 iterations
+0.8053
+
+Board 3: Number of moves needed to finish game: 55
+finished in 355 iterations
+0.505948
+
+
+        if car.x < self.cars[0].y:
+            cost += 100
+
+Board 1: Number of moves needed to finish game: 241
+finished in 4325 iterations
+7.380428
+
+Board 2: Number of moves needed to finish game: 36
+finished in 370 iterations
+0.807449
+
+Board 3: Number of moves needed to finish game: 39
+finished in 213 iterations
+0.320928
+
+        if car.id == 1:
+            cost -= 250
+
+Board 1: Number of moves needed to finish game: 231
+finished in 3294 iterations
+5.113581
+
+Board 2: Number of moves needed to finish game: 86
+finished in 1130 iterations
+2.316788
+
+Board 3: Number of moves needed to finish game: 55
+finished in 355 iterations
+0.483232
+
+        if car.length == 3:
+            cost -= 250
+
+Board 1: Number of moves needed to finish game: 197
+finished in 3780 iterations
+5.807938
+
+Board 2: Number of moves needed to finish game: 39
+finished in 341 iterations
+0.719914
+
+Board 3: Number of moves needed to finish game: 55
+finished in 355 iterations
+0.51411
+
+        if car.orientation == "V" and car.x > self.cars[0].x:
+            if car.y == self.cars[0].y:
+                cost -= 200
+            if car.y - 1 == self.cars[0].y:
+                cost -= 200
+            if car.length == 3:
+                if car.y - 2 == self.cars[0].y:
+                    cost -= 200
+
+Board 1: Number of moves needed to finish game: 189
+finished in 3237 iterations
+4.751077
+
+Board 2: Number of moves needed to finish game: 31
+finished in 632 iterations
+1.266968
+
+Board 3: Number of moves needed to finish game: 45
+finished in 285 iterations
+0.378715

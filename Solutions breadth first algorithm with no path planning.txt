@@ -42,3 +42,19 @@ Solution Board 4:
  [ 9  0  0  7 10 14  0  0 21]
  [22 22 22  7 11 11 12 12 21]]
 finished in 348481 moves
+
+
+
+A STAR BOARD 5: (heuristieken configuratie 1)
+[[ 0  0 19 19 19  2  0  0  0]
+ [ 9  0  0 20 17  2  4  4 23]
+ [ 9  5  5 20 17  0  3  0 23]
+ [13  7  7 20  8  8  3  0 23]
+ [13 21 21 21  0 22  0  1  1]
+ [ 0 14 10  0  0 22  6  0  0]
+ [ 0 14 10 11 11 22  6 12 12]
+ [15 15  0  0 24 24 24  0 18]
+ [ 0  0  0  0  0  0 16 16 18]]
+Number of moves needed to finish game: 589
+finished in 157663 iterations
+1135.756457

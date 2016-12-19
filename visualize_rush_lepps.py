@@ -45,18 +45,7 @@ class RushVisualization:
         ymapped = y * self.tileSize
         return (xmapped, ymapped)
         "Maps grid positions to window positions (in pixels)."
-        # return (250 + 450 * ((x - self.width / 2.0) / self.dimension),
-        #         250 + 450 * ((self.height / 2.0 - y) / self.dimension))
 
-    # def _draw_car(self, car):
-    #     "Returns a rectangle representing a car with the specified parameters."
-    #     x, y = car.x, car.y
-    #     x1, y1 = self._map_coords(x, y)
-    #     if (car.orientation == "H"):
-    #         x2, y2 = self._map_coords((x + 1), y)
-    #     if (car.orientation == "V"):
-    #         x2, y2 = self._map_coords(x, (y + 1))
-    #     return self.canvas.create_rectangle(x1, y1, x2, y2, fill = "red")
 
     def draw_cars(self):
         colors = ['blue', 'red', 'green', 'purple', 'yellow', 'black']
@@ -108,7 +97,3 @@ class RushVisualization:
 
     def done(self):
         tk.mainloop()
-    #
-    # def done(self):
-    #     "Indicate that the animation is done so that we allow the user to close the window."
-    #     mainloop()
