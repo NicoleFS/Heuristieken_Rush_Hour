@@ -1,6 +1,19 @@
 BOARD1
 
 car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(3, 0, 2, "H", 2)
+car3 = Car(4, 3, 2, "H", 3)
+car4 = Car(0, 4, 2, "V", 4)
+car5 = Car(1, 4, 2, "H", 5)
+car6 = Car(4, 5, 2, "H", 6)
+car7 = Car(2, 0, 3, "V", 7)
+car8 = Car(5, 0, 3, "V", 8)
+car9 = Car(3, 3, 3, "V", 9)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
+
+Oude versie;
+car1 = Car(3, 2, 2, "H", 1)
 car2 = Car(2, 0, 3, "V", 2)
 car3 = Car(3, 0, 2, "H", 3)
 car4 = Car(5, 0, 3, "V", 4)
@@ -9,8 +22,6 @@ car6 = Car(4, 3, 2, "H", 6)
 car7 = Car(0, 4, 2, "V", 7)
 car8 = Car(1, 4, 2, "H", 8)
 car9 = Car(4, 5, 2, "H", 9)
-
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 BOARD2
 
