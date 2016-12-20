@@ -348,7 +348,7 @@ class Game(object):
         # return length of the set
         return len(self.state_set)
 
-    def setNewParent(self, parentString):
+    def addToPath(self, parentString):
 
         """
         Links parent board with their child board in dictionary path.
@@ -372,48 +372,55 @@ class Game(object):
     def queueAllPossibleMoves(self):
 
         """
-        For every Car all four directions are checked. If a Car can move in a certain direction it is checked if the
-        new state is already in the archive. If so, the move is reversed. If it is a unique board state after a move
-        the cars and the grid are put in queues and the move is reversed to be able to check the opposite direction.
+        For every car all directions are checked. If a car can move in a certain direction it is checked if it is
+        already in the archive, if so the board state will not be added to the queue. If it is a new unique board
+        state after a move, setNewParent will be called to create a queueItem and put this in the priority queue
+        and the move will be reset, also to be able to check the opposite direction.
         """
 
-        # create and set variable to string of current grid state
+        # set parent_string to the string of the current board state
         parent_string = self.gridToString()
 
-        # iterate through every car and check if a move is possible
+        # iterate through all the cars in self.cars and check for each direction if a move is possible
         for car in self.cars:
+
+            # check if car can move up
             if self.canMoveUp(car):
 
-                # create and set variable to length of set
+                # length of set before moving car
                 a = Game.checkMove(self)
 
-                # move Car
+                # move the car
                 self.moveUp(car)
 
-                # create and set variable to (possibly new) length of set
+                # length of set after moving car
                 b = Game.checkMove(self)
 
-                # compare length of set
+                # if the length of the set has changed after a move
                 if a != b:
 
-                    # if set length has changed, call setNewParent
-                    self.setNewParent(parent_string)
+                    # call addToPath
+                    self.addToPath(parent_string)
 
-                # reverse the movement of the Car
+                # reset move
                 self.moveDown(car)
+
+            # do the same as for moving up
             if self.canMoveDown(car):
                 a = Game.checkMove(self)
                 self.moveDown(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.setNewParent(parent_string)
+                    self.addToPath(parent_string)
                 self.moveUp(car)
+
+            # do the same as for moving up, except here you also check for the winning state
             if self.canMoveRight(car):
                 a = Game.checkMove(self)
                 self.moveRight(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.setNewParent(parent_string)
+                    self.addToPath(parent_string)
 
                     # check if winning position has been reached. This is only checked here since the
                     # winning state can only be reached by moving the red car to the right
@@ -422,12 +429,14 @@ class Game(object):
                         # if winning state has been reached, exit the for loop
                         return False
                 self.moveLeft(car)
+
+            # do the same as for moving up
             if Game.canMoveLeft(self, car):
                 a = Game.checkMove(self)
                 self.moveLeft(car)
                 b = Game.checkMove(self)
                 if a != b:
-                    self.setNewParent(parent_string)
+                    self.addToPath(parent_string)
                 self.moveRight(car)
 
     def deque(self):
@@ -435,6 +444,7 @@ class Game(object):
         """
         Prints starting grid and initiates algorithm to solve the board.
         Prints end state of grid, number of moves, number of iterations and time needed to solve board.
+        Afterwards the path to the fastest solution is deduced and saved in a list.
         """
 
         # start clock
@@ -451,7 +461,7 @@ class Game(object):
         # check if board has reached the winning state, if not, keep executing body
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
 
-            # obtain first grid and Car in corresponding queues
+            # obtain first grid and car from corresponding queues
             self.grid = self.gridQueue.get()
             self.cars = self.carsQueue.get()
 
@@ -470,9 +480,9 @@ class Game(object):
         print "Seconds needed to run program: ", time_duration
 
         # save the board states for the fastest path from start to finish
-        self.makePath()
+        self.makeBestPath()
 
-    def makePath(self):
+    def makeBestPath(self):
 
         """
         Makes a list of every board state in strings of the fastest path from the final state to the start state.
