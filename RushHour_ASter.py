@@ -537,6 +537,27 @@ class Game(object):
             # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
 
+        # Generate some test data
+        data = self.all_boards_path
+
+        # Write the array to disk
+        with file('path_board6.txt', 'w') as outfile:
+            # I'm writing a header here just for the sake of readability
+            # Any line starting with "#" will be ignored by numpy.loadtxt
+            # outfile.write('# Array shape: {0}\n'.format(self.dimension))
+
+            # Iterating through a ndimensional array produces slices along
+            # the last axis. This is equivalent to data[i,:,:] in this case
+            for data_slice in data:
+
+                # The formatting string indicates that I'm writing out
+                # the values in left-justified columns 7 characters in width
+                # with 2 decimal places.
+                np.savetxt(outfile, data_slice, fmt='%-7.2f')
+
+                # Writing out a break to indicate different slices...
+                outfile.write('----------------------------------------------------\n')
+
     def deque(self):
 
         """
@@ -621,6 +642,7 @@ car25 = Car(5, 6, 3, "H", 25)
 car26 = Car(1, 8, 3, "H", 26)
 
 cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26]
+
 
 print "Starting"
 game = Game(6, cars)
