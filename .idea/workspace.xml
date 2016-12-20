@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/heuristieken.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_BACKUP_35447.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_BASE_35447.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_LOCAL_35447.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_REMOTE_35447.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_Breadth.py.orig" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_ASter.py" afterPath="$PROJECT_DIR$/RushHour_ASter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Breadth.py" afterPath="$PROJECT_DIR$/RushHour_Breadth.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Solutions breadth first algorithm with no path planning.txt" afterPath="$PROJECT_DIR$/Solutions breadth first algorithm with no path planning.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/visualize_rush_lepps.py" afterPath="$PROJECT_DIR$/visualize_rush_lepps.py" />
     </list>
     <ignored path="Heuristieken_Rush_Hour.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,54 +27,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RushHour_ASter.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RushHour_ASter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RushHour_ASter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="475" column="12" selection-start-line="475" selection-start-column="12" selection-end-line="475" selection-end-column="12" />
+            <state relative-caret-position="1255">
+              <caret line="391" column="61" selection-start-line="391" selection-start-column="61" selection-end-line="391" selection-end-column="61" />
               <folding>
                 <element signature="e#186#204#0" expanded="true" />
                 <element signature="e#383#604#0" expanded="false" />
                 <element signature="e#433#522#0" expanded="false" />
                 <element signature="e#561#602#0" expanded="false" />
-                <element signature="e#1348#2313#0" expanded="false" />
-                <element signature="e#2353#2394#0" expanded="false" />
-                <element signature="e#2437#3579#0" expanded="false" />
-                <element signature="e#3622#3830#0" expanded="false" />
-                <element signature="e#3872#4043#0" expanded="false" />
-                <element signature="e#4083#4254#0" expanded="false" />
-                <element signature="e#4296#4504#0" expanded="false" />
-                <element signature="e#4546#5244#0" expanded="false" />
-                <element signature="e#5285#5992#0" expanded="false" />
-                <element signature="e#6033#6708#0" expanded="false" />
-                <element signature="e#6747#7359#0" expanded="false" />
-                <element signature="e#10491#10570#0" expanded="false" />
-                <element signature="e#11297#11460#0" expanded="false" />
-                <element signature="e#11495#11828#0" expanded="false" />
-                <element signature="e#11866#12346#0" expanded="false" />
-                <marker date="1482157955000" expanded="false" signature="709:1182" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="heuristieken.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/heuristieken.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="98" column="8" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="visualize_rush_lepps.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visualize_rush_lepps.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#2460#3602#0" expanded="false" />
+                <element signature="e#3645#3853#0" expanded="false" />
+                <element signature="e#3895#4066#0" expanded="false" />
+                <element signature="e#4106#4277#0" expanded="false" />
+                <element signature="e#4319#4527#0" expanded="false" />
+                <element signature="e#4569#5267#0" expanded="false" />
+                <element signature="e#5308#6015#0" expanded="false" />
+                <element signature="e#6056#6731#0" expanded="false" />
+                <element signature="e#6770#7382#0" expanded="false" />
+                <element signature="e#8594#8927#0" expanded="false" />
+                <element signature="e#8965#9445#0" expanded="false" />
+                <marker date="1482161474000" expanded="false" signature="709:1182" ph="..." />
               </folding>
             </state>
           </provider>
@@ -83,34 +57,23 @@
       <file leaf-file-name="RushHour_Breadth.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RushHour_Breadth.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="513" column="13" selection-start-line="513" selection-start-column="13" selection-end-line="513" selection-end-column="13" />
+            <state relative-caret-position="175">
+              <caret line="509" column="27" selection-start-line="509" selection-start-column="27" selection-end-line="509" selection-end-column="27" />
               <folding>
-                <marker date="1482152202000" expanded="false" signature="199:235" ph="import ..." />
-                <marker date="1482152202000" expanded="false" signature="383:967" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="3980:4609" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="4642:5230" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="5261:5824" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="5857:6468" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="6501:7240" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="7272:8022" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="8054:8772" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="8802:9524" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="9551:9796" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="9825:10315" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="10341:10875" ph="..." />
-                <marker date="1482152202000" expanded="false" signature="12221:13907" ph="..." />
+                <element signature="e#389#967#0" expanded="false" />
+                <element signature="e#2771#3993#0" expanded="false" />
+                <element signature="e#4037#4656#0" expanded="false" />
+                <element signature="e#4699#5277#0" expanded="false" />
+                <element signature="e#5318#5871#0" expanded="false" />
+                <element signature="e#5914#6515#0" expanded="false" />
+                <element signature="e#6558#7287#0" expanded="false" />
+                <element signature="e#7329#8069#0" expanded="false" />
+                <element signature="e#8111#8819#0" expanded="false" />
+                <element signature="e#8859#9571#0" expanded="false" />
+                <element signature="e#9608#9843#0" expanded="false" />
+                <element signature="e#9882#10390#0" expanded="false" />
+                <element signature="e#10426#10950#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="boards.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/boards.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="61" selection-start-line="2" selection-start-column="0" selection-end-line="12" selection-end-column="61" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -417,7 +380,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -430,31 +393,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RushHour_ASter.py">
+    <entry file="file://$PROJECT_DIR$/boards.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="475" column="12" selection-start-line="475" selection-start-column="12" selection-end-line="475" selection-end-column="12" />
+        <state relative-caret-position="180">
+          <caret line="12" column="61" selection-start-line="2" selection-start-column="0" selection-end-line="12" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visualize_rush_lepps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
           <folding>
-            <element signature="e#186#204#0" expanded="true" />
-            <element signature="e#383#604#0" expanded="false" />
-            <element signature="e#433#522#0" expanded="false" />
-            <element signature="e#561#602#0" expanded="false" />
-            <element signature="e#1348#2313#0" expanded="false" />
-            <element signature="e#2353#2394#0" expanded="false" />
-            <element signature="e#2437#3579#0" expanded="false" />
-            <element signature="e#3622#3830#0" expanded="false" />
-            <element signature="e#3872#4043#0" expanded="false" />
-            <element signature="e#4083#4254#0" expanded="false" />
-            <element signature="e#4296#4504#0" expanded="false" />
-            <element signature="e#4546#5244#0" expanded="false" />
-            <element signature="e#5285#5992#0" expanded="false" />
-            <element signature="e#6033#6708#0" expanded="false" />
-            <element signature="e#6747#7359#0" expanded="false" />
-            <element signature="e#10491#10570#0" expanded="false" />
-            <element signature="e#11297#11460#0" expanded="false" />
-            <element signature="e#11495#11828#0" expanded="false" />
-            <element signature="e#11866#12346#0" expanded="false" />
-            <marker date="1482157955000" expanded="false" signature="709:1182" ph="..." />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -467,44 +419,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visualize_rush_lepps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RushHour_Breadth.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="513" column="13" selection-start-line="513" selection-start-column="13" selection-end-line="513" selection-end-column="13" />
+        <state relative-caret-position="175">
+          <caret line="509" column="27" selection-start-line="509" selection-start-column="27" selection-end-line="509" selection-end-column="27" />
           <folding>
-            <marker date="1482152202000" expanded="false" signature="199:235" ph="import ..." />
-            <marker date="1482152202000" expanded="false" signature="383:967" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="3980:4609" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="4642:5230" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="5261:5824" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="5857:6468" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="6501:7240" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="7272:8022" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="8054:8772" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="8802:9524" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="9551:9796" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="9825:10315" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="10341:10875" ph="..." />
-            <marker date="1482152202000" expanded="false" signature="12221:13907" ph="..." />
+            <element signature="e#389#967#0" expanded="false" />
+            <element signature="e#2771#3993#0" expanded="false" />
+            <element signature="e#4037#4656#0" expanded="false" />
+            <element signature="e#4699#5277#0" expanded="false" />
+            <element signature="e#5318#5871#0" expanded="false" />
+            <element signature="e#5914#6515#0" expanded="false" />
+            <element signature="e#6558#7287#0" expanded="false" />
+            <element signature="e#7329#8069#0" expanded="false" />
+            <element signature="e#8111#8819#0" expanded="false" />
+            <element signature="e#8859#9571#0" expanded="false" />
+            <element signature="e#9608#9843#0" expanded="false" />
+            <element signature="e#9882#10390#0" expanded="false" />
+            <element signature="e#10426#10950#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/boards.txt">
+    <entry file="file://$PROJECT_DIR$/RushHour_ASter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="61" selection-start-line="2" selection-start-column="0" selection-end-line="12" selection-end-column="61" />
-          <folding />
+        <state relative-caret-position="1255">
+          <caret line="391" column="61" selection-start-line="391" selection-start-column="61" selection-end-line="391" selection-end-column="61" />
+          <folding>
+            <element signature="e#186#204#0" expanded="true" />
+            <element signature="e#383#604#0" expanded="false" />
+            <element signature="e#433#522#0" expanded="false" />
+            <element signature="e#561#602#0" expanded="false" />
+            <element signature="e#2460#3602#0" expanded="false" />
+            <element signature="e#3645#3853#0" expanded="false" />
+            <element signature="e#3895#4066#0" expanded="false" />
+            <element signature="e#4106#4277#0" expanded="false" />
+            <element signature="e#4319#4527#0" expanded="false" />
+            <element signature="e#4569#5267#0" expanded="false" />
+            <element signature="e#5308#6015#0" expanded="false" />
+            <element signature="e#6056#6731#0" expanded="false" />
+            <element signature="e#6770#7382#0" expanded="false" />
+            <element signature="e#8594#8927#0" expanded="false" />
+            <element signature="e#8965#9445#0" expanded="false" />
+            <marker date="1482161474000" expanded="false" signature="709:1182" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

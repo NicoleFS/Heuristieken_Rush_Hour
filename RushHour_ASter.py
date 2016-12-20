@@ -52,6 +52,7 @@ class Game(object):
         """
         self.cars = cars
         self.dimension = dimension
+
         self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
 
         for car in self.cars:
@@ -61,7 +62,7 @@ class Game(object):
 
         self.priority = 500
 
-        queueItem = PQueueItem(self.priority, self.cars, self.grid)
+        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
         self.queue.put(queueItem)
 
         # create set to store board states
@@ -81,7 +82,6 @@ class Game(object):
 
     def __cmp__(self, other):
         return cmp(self.priority, other.priority)
-
 
     def addCarToGrid(self, car):
         """
@@ -224,92 +224,6 @@ class Game(object):
         car.y = car.y - 1
         self.cars[car.id - 1] = car
 
-    def canMoveCar(self, car):
-        """
-        Checks whether a place on the grid is empty, if so, moves the car and moves it back.
-        Then checks if the move has already been made, if so it returns false.
-        Otherwise returns true and adds the move to the queue
-        """
-
-        # determine orientation of car (either horizontal ("H") or vertical ("V"))
-        # check if the car can move to the right
-        if Game.canMoveRight(self, car):
-            a = Game.checkMove(self)
-            Game.moveRight(self, car)
-            b = Game.checkMove(self)
-
-            # ga door met 2e if loop (out of bounds)
-            if a != b:
-                Game.moveLeft(self, car)
-                car.nextMove = "Right"
-                return True  # wat gebeurd er met deze True?
-            else:
-                Game.moveLeft(self, car)
-                if Game.canMoveLeft(self, car):
-                    Game.moveLeft(self, car)
-                    c = Game.checkMove(self)
-                    if a != c:
-                        Game.moveRight(self, car)
-                        car.nextMove = "Left"
-                        return True
-                    else:
-                        Game.moveRight(self, car)
-                        return False
-
-        # check if the car can move to the left
-        if Game.canMoveLeft(self, car):
-            a = Game.checkMove(self)
-            Game.moveLeft(self, car)
-            b = Game.checkMove(self)
-            if a != b:
-                Game.moveRight(self, car)
-                car.nextMove = "Left"
-                return True
-            else:
-                Game.moveRight(self, car)
-                return False
-
-
-                # check if the car can move down
-        if Game.canMoveDown(self, car):
-            a = Game.checkMove(self)
-            Game.moveDown(self, car)
-            b = Game.checkMove(self)
-            if a != b:
-                Game.moveUp(self, car)
-                car.nextMove = "Down"
-                return True
-            else:
-                Game.moveUp(self, car)
-                if Game.canMoveUp(self, car):
-                    Game.moveUp(self, car)
-                    c = Game.checkMove(self)
-                        # Game.moveDown(self, car)
-                    if a != c:
-                        self.validMove()
-                        Game.moveDown(self, car)
-                        car.nextMove = "Up"
-                        return True
-                    else:
-                        Game.moveDown(self, car)
-                        return False
-                else:
-                    return False
-
-
-        # check if the car can move up
-        if Game.canMoveUp(self, car):
-            a = Game.checkMove(self)
-            Game.moveUp(self, car)
-            b = Game.checkMove(self)
-            if a != b:
-                Game.moveDown(self, car)
-                car.nextMove = "Up"
-                return True
-            else:
-                Game.moveDown(self, car)
-                return False
-
     def calculateCost(self, car):
 
         # initial cost for all cars
@@ -336,6 +250,10 @@ class Game(object):
         # gives cars at the left of the board lower priority
         if car.x < self.dimension/2:
             cost += 100
+
+        # gives the state with the red car at the winning position huge priority
+        if  self.grid[self.dimension - 1, self.cars[0].y] == 1:
+            cost -= 400
 
         return cost
 
