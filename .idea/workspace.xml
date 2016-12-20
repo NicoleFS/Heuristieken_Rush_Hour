@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_BACKUP_35447.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_BASE_35447.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_LOCAL_35447.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter_REMOTE_35447.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_Breadth.py.orig" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_ASter.py" afterPath="$PROJECT_DIR$/RushHour_ASter.py" />
     </list>
     <ignored path="Heuristieken_Rush_Hour.iws" />
@@ -30,8 +25,8 @@
       <file leaf-file-name="RushHour_ASter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RushHour_ASter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1255">
-              <caret line="391" column="61" selection-start-line="391" selection-start-column="61" selection-end-line="391" selection-end-column="61" />
+            <state relative-caret-position="265">
+              <caret line="401" column="66" selection-start-line="401" selection-start-column="66" selection-end-line="401" selection-end-column="66" />
               <folding>
                 <element signature="e#186#204#0" expanded="true" />
                 <element signature="e#383#604#0" expanded="false" />
@@ -46,10 +41,20 @@
                 <element signature="e#5308#6015#0" expanded="false" />
                 <element signature="e#6056#6731#0" expanded="false" />
                 <element signature="e#6770#7382#0" expanded="false" />
-                <element signature="e#8594#8927#0" expanded="false" />
-                <element signature="e#8965#9445#0" expanded="false" />
-                <marker date="1482161474000" expanded="false" signature="709:1182" ph="..." />
+                <element signature="e#8697#9030#0" expanded="false" />
+                <element signature="e#9068#9548#0" expanded="false" />
+                <marker date="1482232857000" expanded="false" signature="709:1182" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="boards.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/boards.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="59" column="89" selection-start-line="45" selection-start-column="0" selection-end-line="59" selection-end-column="89" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -353,7 +358,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28663447" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28663447" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -389,14 +394,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
           <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/boards.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="61" selection-start-line="2" selection-start-column="0" selection-end-line="12" selection-end-column="61" />
           <folding />
         </state>
       </provider>
@@ -441,10 +438,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/boards.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="59" column="89" selection-start-line="45" selection-start-column="0" selection-end-line="59" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RushHour_ASter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1255">
-          <caret line="391" column="61" selection-start-line="391" selection-start-column="61" selection-end-line="391" selection-end-column="61" />
+        <state relative-caret-position="265">
+          <caret line="401" column="66" selection-start-line="401" selection-start-column="66" selection-end-line="401" selection-end-column="66" />
           <folding>
             <element signature="e#186#204#0" expanded="true" />
             <element signature="e#383#604#0" expanded="false" />
@@ -459,9 +464,9 @@
             <element signature="e#5308#6015#0" expanded="false" />
             <element signature="e#6056#6731#0" expanded="false" />
             <element signature="e#6770#7382#0" expanded="false" />
-            <element signature="e#8594#8927#0" expanded="false" />
-            <element signature="e#8965#9445#0" expanded="false" />
-            <marker date="1482161474000" expanded="false" signature="709:1182" ph="..." />
+            <element signature="e#8697#9030#0" expanded="false" />
+            <element signature="e#9068#9548#0" expanded="false" />
+            <marker date="1482232857000" expanded="false" signature="709:1182" ph="..." />
           </folding>
         </state>
       </provider>
