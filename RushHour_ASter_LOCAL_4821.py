@@ -80,13 +80,6 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
-        # create dictionaries for in order to follow the parents and children of those parents
-        self.path = {}
-
-        self.start_state = start
-
-        self.all_boards_path = []
-
     def addCarToGrid(self, car):
         """
         Fill the board with a given car.
@@ -289,30 +282,7 @@ class Game(object):
         for i in range(len(self.grid.T)):
             for j in range(len(self.grid[i])):
                 hash += str(self.grid.T[i][j])
-                hash += ","
         return hash
-
-    def setNewParent(self, car, parentString):
-
-        """
-        Links parent board with their child board in dictionaries children and path.
-        Then inserts the current grid in the queue.
-        Adds 1 to the value of moves with child_string as key.
-        """
-
-        # create and set variable to current state as string
-        child_string = self.gridToString()
-
-        # set value of child_string key to parentString in path dictionary
-        self.path[child_string] = parentString
-
-        # set number of moves paired with child state to number of moves from parent state + 1
-        self.moves[child_string] = 1 + self.moves[parentString]
-
-        # insert current grid in queue
-        self.putinQueue(car, child_string)
-
-
 
     def queueAllPossibleMoves(self):
             """ for every car all directions are checked. If a car can move in a certain direction it is checked if it is
@@ -327,7 +297,12 @@ class Game(object):
                     self.moveUp(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        self.setNewParent(car, parent_string)
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+
+                        self.putinQueue(car, child_string)
 
 
                     self.moveDown(car)
@@ -337,7 +312,12 @@ class Game(object):
                     self.moveDown(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        self.setNewParent(car, parent_string)
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+
+                        self.putinQueue(car, child_string)
 
 
                     self.moveUp(car)
@@ -347,8 +327,12 @@ class Game(object):
                     self.moveRight(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        self.setNewParent(car, parent_string)
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
 
+                        self.putinQueue(car, child_string)
 
                         # check if winning position has been reached in this state
                         if self.grid[self.dimension - 1, self.cars[0].y] == 1:
@@ -362,34 +346,15 @@ class Game(object):
                     self.moveLeft(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        self.setNewParent(car, parent_string)
+                        # create and set variable to current state as string
+                        child_string = self.gridToString()
+                        # set number of moves paired with child state to number of moves from parent state + 1
+                        self.moves[child_string] = 1 + self.moves[parent_string]
+
+                        self.putinQueue(car, child_string)
 
 
                     self.moveRight(car)
-
-    def makePath(self):
-
-        path_state = self.gridToString()
-        fastest_path = []
-        fastest_path.append(path_state)
-        while path_state != self.start_state:
-            path_next = self.path.get(path_state)
-            fastest_path.append(path_next)
-            path_state = path_next
-        fastest_path.append(self.start_state)
-
-        for current_path in reversed(fastest_path):
-            board_path = []
-            y = 0
-            path_split = current_path.split(",")
-            for i in range(1, self.dimension + 1):
-                x = self.dimension * i
-                path_row = path_split[y:x]
-                board_path.append(path_row)
-                y = x
-            board_path = np.vstack(board_path)
-            board_path = np.array(board_path, dtype=int)
-            self.all_boards_path.append(board_path)
 
     def deque(self):
 
@@ -413,31 +378,25 @@ class Game(object):
         print "finished in", iteratrions, "iterations"
         print timeDuration
 
-        self.makePath()
-
-#def runSimulation(game):
+def runSimulation(game):
 
     # Starts animation.
-    #anim = visualize_rush_lepps.RushVisualization(game, 500)
+    anim = visualize_rush_lepps.RushVisualization(game, 500)
 
     # Stop animation when done.
-    #anim.done()
+    anim.done()
 
-car1 = Car(2, 2, 2, "H", 1)
-car2 = Car(2, 0, 2, "H", 2)
-car3 = Car(4, 0, 2, "H", 3)
-car4 = Car(1, 1, 2, "H", 4)
-car5 = Car(3, 1, 2, "H", 5)
-car6 = Car(4, 2, 2, "V", 6)
-car7 = Car(0, 3, 2, "H", 7)
-car8 = Car(2, 3, 2, "H", 8)
-car9 = Car(0, 4, 2, "V", 9)
-car10 = Car(3, 4, 2, "V", 10)
-car11 = Car(4, 4, 2, "H", 11)
-car12 = Car(4, 5, 2, "H", 12)
-car13 = Car(5, 1, 3, "V", 13)
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(3, 0, 2, "H", 2)
+car3 = Car(4, 3, 2, "H", 3)
+car4 = Car(0, 4, 2, "V", 4)
+car5 = Car(1, 4, 2, "H", 5)
+car6 = Car(4, 5, 2, "H", 6)
+car7 = Car(2, 0, 3, "V", 7)
+car8 = Car(5, 0, 3, "V", 8)
+car9 = Car(3, 3, 3, "V", 9)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 print "Starting"
 game = Game(6, cars)

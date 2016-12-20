@@ -71,15 +71,10 @@ class Game(object):
         # create set to store board states
         self.state_set = set()
 
-        # create dictionaries for in order to follow the parents and children of those parents
-        self.path = {}
 
         # create key of starting grid state
         start = self.gridToString()
 
-        self.path_state = start
-
-        self.start_state = self.gridToString()
         # create dictionary of grid state (key) paired to
         # corresponding number of performed moves (value)
         self.moves = {}
@@ -87,7 +82,14 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
+        # create dictionary to be able to deduce the fastest path from the winning board
+        self.path = {}
+
+        # list that will be filled with all the board states of the fastest path
         self.all_boards_path = []
+
+        # create a start state to check for the end of the path
+        self.start_state = start
 
     def addCarToGrid(self, car):
 
@@ -322,7 +324,7 @@ class Game(object):
         # create variable to store string in
         hash = ""
 
-        # iterate through the grid and place every integer in the hash as a char, creating a string
+        # iterate through the grid and place every integer in the hash as a char followed by a comma, creating a string
         for i in range(len(self.grid.T)):
             for j in range(len(self.grid[i])):
                 hash += str(self.grid.T[i][j])
@@ -349,7 +351,7 @@ class Game(object):
     def setNewParent(self, parentString):
 
         """
-        Links parent board with their child board in dictionaries children and path.
+        Links parent board with their child board in dictionary path.
         Then inserts the current grid in the queue.
         Adds 1 to the value of moves with child_string as key.
         """
@@ -357,7 +359,8 @@ class Game(object):
         # create and set variable to current state as string
         child_string = self.gridToString()
 
-        # set value of child_string key to parentString in path dictionary
+        # set a key value pair of child_string and parentString in path, with the child being the key and
+        # the parent being the value, making it possible to find previous board states
         self.path[child_string] = parentString
 
         # insert current grid in queue
@@ -393,7 +396,7 @@ class Game(object):
                 # compare length of set
                 if a != b:
 
-                    # if set length has changed, insert new state in queue
+                    # if set length has changed, call setNewParent
                     self.setNewParent(parent_string)
 
                 # reverse the movement of the Car
@@ -412,7 +415,8 @@ class Game(object):
                 if a != b:
                     self.setNewParent(parent_string)
 
-                    # check if winning position has been reached in this state
+                    # check if winning position has been reached. This is only checked here since the
+                    # winning state can only be reached by moving the red car to the right
                     if self.grid[self.dimension - 1, self.cars[0].y] == 1:
 
                         # if winning state has been reached, exit the for loop
@@ -435,8 +439,6 @@ class Game(object):
 
         # start clock
         start_time = time.clock()
-
-        # start_state = self.gridToString()
 
         # print starting grid
         print "Starting grid:"
@@ -467,33 +469,74 @@ class Game(object):
         print "Number of iterations: ", iterations
         print "Seconds needed to run program: ", time_duration
 
-        # print the board states for the fastest path from start to finish
+        # save the board states for the fastest path from start to finish
         self.makePath()
 
     def makePath(self):
 
-        self.all_boards_path = []
+        """
+        Makes a list of every board state in strings of the fastest path from the final state to the start state.
+        Then each board state, from start to finish, will be converted from a string into a 2d array and saved in a
+        list, to be able to visualize the path.
+        """
 
+        # make a string of the winning board
         path_state = self.gridToString()
+
+        # initialise an empty list to fill with all the board states of the fastest path in strings
         fastest_path = []
+
+        # add the winning state to the list
         fastest_path.append(path_state)
+
+        # while path_state is not the start state
         while path_state != self.start_state:
-            path_next = self.path.get(path_state)
-            fastest_path.append(path_next)
-            path_state = path_next
+
+            # the previous board state is the value of the current board state key in self.path
+            path_previous = self.path.get(path_state)
+
+            # add this state to the list
+            fastest_path.append(path_previous)
+
+            # set the current board state to the previous board state
+            path_state = path_previous
+
+        # add the start state to the list
         fastest_path.append(self.start_state)
 
-        for path in reversed(fastest_path):
+        # for all board states of the fastest path, but from start to finish
+        for board_string in reversed(fastest_path):
+
+            # initialise an empty list to fill with the rows of the board
             board_path = []
+
+            # initialise y to zero
             y = 0
-            path_split = path.split(",")
+
+            # split the board state by commas
+            board_split = board_string.split(",")
+
+            # create as many rows as the dimension
             for i in range(1, self.dimension + 1):
+
                 x = self.dimension * i
-                path_row = path_split[y:x]
-                board_path.append(path_row)
+
+                # a row of the board is the split string, index y to x
+                board_row = board_split[y:x]
+
+                # append this row to the list
+                board_path.append(board_row)
+
+                # set y to x
                 y = x
+
+            # make a 2d array of all the rows
             board_path = np.vstack(board_path)
+
+            # make the 2d array into an numpy array with integers
             board_path = np.array(board_path, dtype=int)
+
+            # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
 
 

@@ -7,7 +7,7 @@
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
-import visualize_rush_lepps
+#import visualize_rush_lepps
 import pylab
 import math
 import Queue as QueueClass
@@ -252,7 +252,7 @@ class Game(object):
 
         # gives trucks priority
         if car.length == 3:
-            cost -= 100
+            cost -= 200
 
         # gives cars at the left of the board lower priority
         if car.x < self.dimension/2:
@@ -349,11 +349,6 @@ class Game(object):
                     if a != b:
                         self.setNewParent(car, parent_string)
 
-
-                        # check if winning position has been reached in this state
-                        if self.grid[self.dimension - 1, self.cars[0].y] == 1:
-                            # if winning state has been reached, exit the for loop
-                            return False
 
                     self.moveLeft(car)
 

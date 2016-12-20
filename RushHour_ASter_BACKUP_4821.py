@@ -349,7 +349,6 @@ class Game(object):
                     if a != b:
                         self.setNewParent(car, parent_string)
 
-
                         # check if winning position has been reached in this state
                         if self.grid[self.dimension - 1, self.cars[0].y] == 1:
                             # if winning state has been reached, exit the for loop
@@ -413,16 +412,33 @@ class Game(object):
         print "finished in", iteratrions, "iterations"
         print timeDuration
 
+<<<<<<< HEAD
+def runSimulation(game):
+=======
         self.makePath()
 
 #def runSimulation(game):
+>>>>>>> f72213aaab091f34b61a153b1f4728a33498d62d
 
     # Starts animation.
-    #anim = visualize_rush_lepps.RushVisualization(game, 500)
+    anim = visualize_rush_lepps.RushVisualization(game, 500)
 
     # Stop animation when done.
-    #anim.done()
+    anim.done()
 
+<<<<<<< HEAD
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(3, 0, 2, "H", 2)
+car3 = Car(4, 3, 2, "H", 3)
+car4 = Car(0, 4, 2, "V", 4)
+car5 = Car(1, 4, 2, "H", 5)
+car6 = Car(4, 5, 2, "H", 6)
+car7 = Car(2, 0, 3, "V", 7)
+car8 = Car(5, 0, 3, "V", 8)
+car9 = Car(3, 3, 3, "V", 9)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
+=======
 car1 = Car(2, 2, 2, "H", 1)
 car2 = Car(2, 0, 2, "H", 2)
 car3 = Car(4, 0, 2, "H", 3)
@@ -438,6 +454,7 @@ car12 = Car(4, 5, 2, "H", 12)
 car13 = Car(5, 1, 3, "V", 13)
 
 cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+>>>>>>> f72213aaab091f34b61a153b1f4728a33498d62d
 
 print "Starting"
 game = Game(6, cars)
