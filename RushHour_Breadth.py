@@ -87,6 +87,8 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
+        self.all_boards_path = []
+
     def addCarToGrid(self, car):
 
         """
@@ -469,6 +471,9 @@ class Game(object):
         self.makePath()
 
     def makePath(self):
+
+        self.all_boards_path = []
+
         path_state = self.gridToString()
         fastest_path = []
         fastest_path.append(path_state)
@@ -489,7 +494,9 @@ class Game(object):
                 y = x
             board_path = np.vstack(board_path)
             board_path = np.array(board_path, dtype=int)
-            print board_path
+            self.all_boards_path.append(board_path)
+
+
 
 def runSimulation(game):
 
