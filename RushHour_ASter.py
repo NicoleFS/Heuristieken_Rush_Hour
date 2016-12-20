@@ -80,12 +80,6 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
-<<<<<<< HEAD
-=======
-    def __cmp__(self, other):
-        return cmp(self.priority, other.priority)
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
-
     def addCarToGrid(self, car):
         """
         Fill the board with a given car.
@@ -227,11 +221,7 @@ class Game(object):
         car.y = car.y - 1
         self.cars[car.id - 1] = car
 
-<<<<<<< HEAD
-    def calculateCost(self, car):
-=======
     def calculateCost(self, car, gridstring):
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
 
         # initial cost for all cars
         cost = 500
@@ -392,24 +382,33 @@ class Game(object):
     # Stop animation when done.
     #anim.done()
 
-car1 = Car(0, 2, 2, "H", 1)
-car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(1, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "V", 4)
-car5 = Car(4, 1, 2, "H", 5)
-car6 = Car(2, 2, 2, "V", 6)
-car7 = Car(5, 2, 2, "V", 7)
-car8 = Car(0, 3, 2, "H", 8)
-car9 = Car(3, 3, 2, "H", 9)
-car10 = Car(0, 4, 2, "V", 10)
-car11 = Car(2, 4, 2, "V", 11)
-car12 = Car(4, 4, 2, "H", 12)
-car13 = Car(3, 0, 3, "H", 13)
+car1 = Car(1, 4, 2, "H", 1)
+car2 = Car(0, 0, 2, "V", 2)
+car3 = Car(0, 3, 2, "H", 3)
+car4 = Car(0, 4, 2, "V", 4)
+car5 = Car(3, 4, 2, "V", 5)
+car6 = Car(0, 6, 2, "H", 6)
+car7 = Car(3, 6, 2, "V", 7)
+car8 = Car(4, 6, 2, "H", 8)
+car9 = Car(0, 7, 2, "V", 9)
+car10 = Car(4, 7, 2, "V", 10)
+car11 = Car(5, 8, 2, "H", 11)
+car12 = Car(7, 8, 2, "H", 12)
+car13 = Car(1, 0, 3, "H", 13)
+car14 = Car(5, 0, 3, "V", 14)
+car15 = Car(3, 1, 3, "V", 15)
+car16 = Car(6, 1, 3, "H", 16)
+car17 = Car(8, 2, 3, "V", 17)
+car18 = Car(5, 3, 3, "H", 18)
+car19 = Car(2, 5, 3, "V", 19)
+car20 = Car(5, 5, 3, "H", 20)
+car21 = Car(8, 5, 3, "V", 21)
+car22 = Car(1, 8, 3, "H", 22)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
 
 print "Starting"
-game = Game(6, cars)
+game = Game(9, cars)
 game.deque()
 
 #runSimulation(game)
