@@ -80,11 +80,8 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
-<<<<<<< HEAD
-=======
     def __cmp__(self, other):
         return cmp(self.priority, other.priority)
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
 
     def addCarToGrid(self, car):
         """
@@ -227,11 +224,7 @@ class Game(object):
         car.y = car.y - 1
         self.cars[car.id - 1] = car
 
-<<<<<<< HEAD
-    def calculateCost(self, car):
-=======
     def calculateCost(self, car, gridstring):
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
 
         # initial cost for all cars
         cost = 500
@@ -380,7 +373,7 @@ class Game(object):
         timeDuration = time.clock() - startTime
         print "End of loop"
         print self.grid.T
-        print "Number of moves needed to finish game: ", self.moves[self.gridToString()]
+        print "Number of moves needed to finish game: " + str(self.moves[self.gridToString()])
         print "finished in", iteratrions, "iterations"
         print timeDuration
 

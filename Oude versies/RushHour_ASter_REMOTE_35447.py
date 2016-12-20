@@ -52,7 +52,6 @@ class Game(object):
         """
         self.cars = cars
         self.dimension = dimension
-
         self.grid = np.zeros(shape=(dimension, dimension), dtype=np.int)
 
         for car in self.cars:
@@ -62,7 +61,7 @@ class Game(object):
 
         self.priority = 500
 
-        queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
+        queueItem = PQueueItem(self.priority, self.cars, self.grid)
         self.queue.put(queueItem)
 
         # create set to store board states
@@ -80,11 +79,9 @@ class Game(object):
         # set start key value
         self.moves[start] = 0
 
-<<<<<<< HEAD
-=======
     def __cmp__(self, other):
         return cmp(self.priority, other.priority)
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
+
 
     def addCarToGrid(self, car):
         """
@@ -227,17 +224,96 @@ class Game(object):
         car.y = car.y - 1
         self.cars[car.id - 1] = car
 
-<<<<<<< HEAD
+    def canMoveCar(self, car):
+        """
+        Checks whether a place on the grid is empty, if so, moves the car and moves it back.
+        Then checks if the move has already been made, if so it returns false.
+        Otherwise returns true and adds the move to the queue
+        """
+
+        # determine orientation of car (either horizontal ("H") or vertical ("V"))
+        # check if the car can move to the right
+        if Game.canMoveRight(self, car):
+            a = Game.checkMove(self)
+            Game.moveRight(self, car)
+            b = Game.checkMove(self)
+
+            # ga door met 2e if loop (out of bounds)
+            if a != b:
+                Game.moveLeft(self, car)
+                car.nextMove = "Right"
+                return True  # wat gebeurd er met deze True?
+            else:
+                Game.moveLeft(self, car)
+                if Game.canMoveLeft(self, car):
+                    Game.moveLeft(self, car)
+                    c = Game.checkMove(self)
+                    if a != c:
+                        Game.moveRight(self, car)
+                        car.nextMove = "Left"
+                        return True
+                    else:
+                        Game.moveRight(self, car)
+                        return False
+
+        # check if the car can move to the left
+        if Game.canMoveLeft(self, car):
+            a = Game.checkMove(self)
+            Game.moveLeft(self, car)
+            b = Game.checkMove(self)
+            if a != b:
+                Game.moveRight(self, car)
+                car.nextMove = "Left"
+                return True
+            else:
+                Game.moveRight(self, car)
+                return False
+
+
+                # check if the car can move down
+        if Game.canMoveDown(self, car):
+            a = Game.checkMove(self)
+            Game.moveDown(self, car)
+            b = Game.checkMove(self)
+            if a != b:
+                Game.moveUp(self, car)
+                car.nextMove = "Down"
+                return True
+            else:
+                Game.moveUp(self, car)
+                if Game.canMoveUp(self, car):
+                    Game.moveUp(self, car)
+                    c = Game.checkMove(self)
+                        # Game.moveDown(self, car)
+                    if a != c:
+                        self.validMove()
+                        Game.moveDown(self, car)
+                        car.nextMove = "Up"
+                        return True
+                    else:
+                        Game.moveDown(self, car)
+                        return False
+                else:
+                    return False
+
+
+        # check if the car can move up
+        if Game.canMoveUp(self, car):
+            a = Game.checkMove(self)
+            Game.moveUp(self, car)
+            b = Game.checkMove(self)
+            if a != b:
+                Game.moveDown(self, car)
+                car.nextMove = "Up"
+                return True
+            else:
+                Game.moveDown(self, car)
+                return False
+
     def calculateCost(self, car):
-=======
-    def calculateCost(self, car, gridstring):
->>>>>>> 72d2778570452efab5013b6c60c386b59a37b7fd
 
         # initial cost for all cars
         cost = 500
-
-        moves = self.moves[gridstring]
-        cost += moves * 10
 
         # checks if any part of a vertical car is in line and in front of the red car
         if car.orientation == "V" and car.x > self.cars[0].x:
@@ -261,14 +337,10 @@ class Game(object):
         if car.x < self.dimension/2:
             cost += 100
 
-        # gives the state with the red car at the winning position huge priority
-        if  self.grid[self.dimension - 1, self.cars[0].y] == 1:
-            cost -= 400
-
         return cost
 
-    def putinQueue(self, car, gridstring):
-        self.priority = self.calculateCost(car, gridstring)
+    def putinQueue(self, car):
+        self.priority = self.calculateCost(car)
         queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
         self.queue.put(queueItem)
 
@@ -309,12 +381,11 @@ class Game(object):
                     if a != b:
                         # create and set variable to current state as string
                         child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
                         # set number of moves paired with child state to number of moves from parent state + 1
                         self.moves[child_string] = 1 + self.moves[parent_string]
-
-                        self.putinQueue(car, child_string)
-
-
                     self.moveDown(car)
 
                 if self.canMoveDown(car):
@@ -324,12 +395,11 @@ class Game(object):
                     if a != b:
                         # create and set variable to current state as string
                         child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
                         # set number of moves paired with child state to number of moves from parent state + 1
                         self.moves[child_string] = 1 + self.moves[parent_string]
-
-                        self.putinQueue(car, child_string)
-
-
                     self.moveUp(car)
 
                 if self.canMoveRight(car):
@@ -339,12 +409,11 @@ class Game(object):
                     if a != b:
                         # create and set variable to current state as string
                         child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
                         # set number of moves paired with child state to number of moves from parent state + 1
                         self.moves[child_string] = 1 + self.moves[parent_string]
-
-                        self.putinQueue(car, child_string)
-
-
                     self.moveLeft(car)
 
                 if Game.canMoveLeft(self, car):
@@ -354,12 +423,11 @@ class Game(object):
                     if a != b:
                         # create and set variable to current state as string
                         child_string = self.gridToString()
+
+                        self.putinQueue(car)
+
                         # set number of moves paired with child state to number of moves from parent state + 1
                         self.moves[child_string] = 1 + self.moves[parent_string]
-
-                        self.putinQueue(car, child_string)
-
-
                     self.moveRight(car)
 
     def deque(self):
@@ -380,7 +448,7 @@ class Game(object):
         timeDuration = time.clock() - startTime
         print "End of loop"
         print self.grid.T
-        print "Number of moves needed to finish game: ", self.moves[self.gridToString()]
+        print "Number of moves needed to finish game: " + str(self.moves[self.gridToString()])
         print "finished in", iteratrions, "iterations"
         print timeDuration
 
@@ -392,21 +460,18 @@ class Game(object):
     # Stop animation when done.
     #anim.done()
 
-car1 = Car(0, 2, 2, "H", 1)
-car2 = Car(1, 0, 2, "H", 2)
-car3 = Car(1, 1, 2, "H", 3)
-car4 = Car(3, 1, 2, "V", 4)
-car5 = Car(4, 1, 2, "H", 5)
-car6 = Car(2, 2, 2, "V", 6)
-car7 = Car(5, 2, 2, "V", 7)
-car8 = Car(0, 3, 2, "H", 8)
-car9 = Car(3, 3, 2, "H", 9)
-car10 = Car(0, 4, 2, "V", 10)
-car11 = Car(2, 4, 2, "V", 11)
-car12 = Car(4, 4, 2, "H", 12)
-car13 = Car(3, 0, 3, "H", 13)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(2, 0, 3, "V", 2)
+car3 = Car(3, 0, 2, "H", 3)
+car4 = Car(5, 0, 3, "V", 4)
+car5 = Car(3, 3, 3, "V", 5)
+car6 = Car(4, 3, 2, "H", 6)
+car7 = Car(0, 4, 2, "V", 7)
+car8 = Car(1, 4, 2, "H", 8)
+car9 = Car(4, 5, 2, "H", 9)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 print "Starting"
 game = Game(6, cars)
