@@ -594,6 +594,8 @@ class Game(object):
             # add one to the iterations
             iteratrions += 1
 
+            print iteratrions
+
         # calculate duration of the algorithm
         timeDuration = time.clock() - startTime
 
@@ -645,7 +647,7 @@ cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car1
 
 
 print "Starting"
-game = Game(6, cars)
+game = Game(9, cars)
 game.deque()
 
 #runSimulation(game)
