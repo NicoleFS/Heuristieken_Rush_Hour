@@ -1,31 +1,33 @@
 import numpy as np
 
-path  = open('path_board3.txt')
+path = open('path_board1.txt')
 
-
-boards = []
+lines = []
 
 for line in path:
     line = line.strip("\n")
+    line = line.split(" ")
+    #print line
+    lines.append(line)
+
+boards = []
+
+y = 0
+
+for j in range((len(lines)/len(line))):
     board = []
-    for i in range(6):
-        board.append(line)
+    x = len(line) * (j+1)
+    for i in range(y, x):
+        board.append(lines[i])
     board = np.vstack(board)
+    board = np.array(board, dtype=int)
     boards.append(board)
-print boards
-    # item_split = item.split("\n")
-    # #print item_split
-    # for i in item_split:
-    #     if i == " ":
-    #         item_split.remove(i)
-    # print item_split
-    # item_row = []
-    # for i in range(6):
-    #     item_split = item.split("\n")
-    #     item_row.append(item_split)
-    # item_row = np.vstack(item_row)
-    # item_row = np.array(item_row, dtype=int)
-    # print item_row
+    print board
+    y = x
+
+# for item in boards:
+    # run the simulation
+
 
 
 
