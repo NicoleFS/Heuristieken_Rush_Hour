@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/boardplaatjes/Board1_sol.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/boardplaatjes/Board2_sol.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/boardplaatjes/Board3_sol.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_ASter.py" afterPath="$PROJECT_DIR$/RushHour_ASter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Breadth.py" afterPath="$PROJECT_DIR$/RushHour_Breadth.py" />
-    </list>
+    <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="" />
     <ignored path="Heuristieken_Rush_Hour.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -301,7 +294,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38808373" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38808373" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -340,21 +333,21 @@
           <folding>
             <element signature="e#382#603#0" expanded="false" />
             <element signature="e#713#1181#0" expanded="false" />
-            <element signature="e#1347#2335#0" expanded="false" />
-            <element signature="e#2378#3520#0" expanded="false" />
-            <element signature="e#3563#3771#0" expanded="false" />
-            <element signature="e#3813#3984#0" expanded="false" />
-            <element signature="e#4024#4195#0" expanded="false" />
-            <element signature="e#4237#4445#0" expanded="false" />
-            <element signature="e#4487#5185#0" expanded="false" />
-            <element signature="e#5226#5933#0" expanded="false" />
-            <element signature="e#5974#6649#0" expanded="false" />
-            <element signature="e#6688#7300#0" expanded="false" />
-            <element signature="e#8405#8580#0" expanded="false" />
-            <element signature="e#8615#8948#0" expanded="false" />
-            <element signature="e#8986#9466#0" expanded="false" />
-            <element signature="e#12784#13440#0" expanded="false" />
-            <marker date="1482251237000" expanded="false" signature="186:222" ph="import ..." />
+            <element signature="e#1347#2523#0" expanded="false" />
+            <element signature="e#2566#3708#0" expanded="false" />
+            <element signature="e#3751#3959#0" expanded="false" />
+            <element signature="e#4001#4172#0" expanded="false" />
+            <element signature="e#4212#4383#0" expanded="false" />
+            <element signature="e#4425#4633#0" expanded="false" />
+            <element signature="e#4675#5373#0" expanded="false" />
+            <element signature="e#5414#6121#0" expanded="false" />
+            <element signature="e#6162#6837#0" expanded="false" />
+            <element signature="e#6876#7488#0" expanded="false" />
+            <element signature="e#8593#8768#0" expanded="false" />
+            <element signature="e#8803#9136#0" expanded="false" />
+            <element signature="e#9174#9682#0" expanded="false" />
+            <element signature="e#10479#12411#0" expanded="false" />
+            <marker date="1482252411000" expanded="false" signature="186:222" ph="import ..." />
           </folding>
         </state>
       </provider>
@@ -401,21 +394,21 @@
           <folding>
             <element signature="e#382#603#0" expanded="false" />
             <element signature="e#713#1181#0" expanded="false" />
-            <element signature="e#1347#2335#0" expanded="false" />
-            <element signature="e#2378#3520#0" expanded="false" />
-            <element signature="e#3563#3771#0" expanded="false" />
-            <element signature="e#3813#3984#0" expanded="false" />
-            <element signature="e#4024#4195#0" expanded="false" />
-            <element signature="e#4237#4445#0" expanded="false" />
-            <element signature="e#4487#5185#0" expanded="false" />
-            <element signature="e#5226#5933#0" expanded="false" />
-            <element signature="e#5974#6649#0" expanded="false" />
-            <element signature="e#6688#7300#0" expanded="false" />
-            <element signature="e#8405#8580#0" expanded="false" />
-            <element signature="e#8615#8948#0" expanded="false" />
-            <element signature="e#8986#9466#0" expanded="false" />
-            <element signature="e#12784#13440#0" expanded="false" />
-            <marker date="1482251237000" expanded="false" signature="186:222" ph="import ..." />
+            <element signature="e#1347#2523#0" expanded="false" />
+            <element signature="e#2566#3708#0" expanded="false" />
+            <element signature="e#3751#3959#0" expanded="false" />
+            <element signature="e#4001#4172#0" expanded="false" />
+            <element signature="e#4212#4383#0" expanded="false" />
+            <element signature="e#4425#4633#0" expanded="false" />
+            <element signature="e#4675#5373#0" expanded="false" />
+            <element signature="e#5414#6121#0" expanded="false" />
+            <element signature="e#6162#6837#0" expanded="false" />
+            <element signature="e#6876#7488#0" expanded="false" />
+            <element signature="e#8593#8768#0" expanded="false" />
+            <element signature="e#8803#9136#0" expanded="false" />
+            <element signature="e#9174#9682#0" expanded="false" />
+            <element signature="e#10479#12411#0" expanded="false" />
+            <marker date="1482252411000" expanded="false" signature="186:222" ph="import ..." />
           </folding>
         </state>
       </provider>
