@@ -1,6 +1,5 @@
 import numpy as np
 import visualize_path
-import csv
 import sys
 
 if (len(sys.argv) != 3):

@@ -571,26 +571,42 @@ class Game(object):
             self.all_boards_path.append(board_path)
 
 def loadDataset(filename, cars):
+    """
+    Reads an input file and converts this to usable game parameters
+    :param filename: the input file that needs to be read
+    :param cars: the list of cars that the cars need to be added to
+    :return: the dimension as an int
+    """
     with open(filename, 'rb') as csvfile:
         lines = csv.reader(csvfile)
         dataset = list(lines)
-
+        # the first line of the imput file is always the dimension
         dimension = dataset[0][0]
+        # the rest of the lines contains the parameters needed to create car objects
         for carLine in dataset[1:]:
             car = Car(int(carLine[0]), int(carLine[1]), int(carLine[2]), carLine[3], int(carLine[4]))
+            # appends all cars to a list of cars
             cars.append(car)
         return int(dimension)
 
-
+# 3 commandline arguments are given the algorithm should be run with the loaded board and an outputfile
+# should be created with the name of the third command line argurment.
 if (len(sys.argv) == 3):
     cars = []
+    # opens the file that contains the board and cars parameters
     filename = str(sys.argv[1])
+    # gets the dimension of the board from the input file
     dimension = loadDataset(filename, cars)
+    # initializes a game with cars and a dimension
     game = Game(dimension, cars)
+    # runs the algorithm
     game.deque()
+    # writes an output file
     game.writeFile(str(sys.argv[2]))
+# if the usage is incorrect the user is informed with a print statement
 elif (len(sys.argv) != 2):
     print('Error, usage: program.py boardfile.csv')
+# if 2 commandline afgumens are given the algorithm is run without creating an output file
 else:
     cars = []
     filename = str(sys.argv[1])
