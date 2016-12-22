@@ -6,7 +6,6 @@
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
-import visualize_rush_lepps
 import time
 import pylab
 import math
@@ -441,6 +440,26 @@ class Game(object):
                     self.addToPath(parent_string)
                 self.moveRight(car)
 
+    def writeFile(self, filename):
+
+        # Generate some test data
+        data = self.all_boards_path
+
+        # Write the array to disk
+        with file(filename, 'w') as outfile:
+            # I'm writing a header here just for the sake of readability
+            # Any line starting with "#" will be ignored by numpy.loadtxt
+            # outfile.write('# Array shape: {0}\n'.format(self.dimension))
+
+            # Iterating through a ndimensional array produces slices along
+            # the last axis. This is equivalent to data[i,:,:] in this case
+            for data_slice in data:
+
+                # The formatting string indicates that I'm writing out
+                # the values in left-justified columns 7 characters in width
+                # with 2 decimal places.
+                np.savetxt(outfile, data_slice, fmt='%d')
+
     def deque(self):
 
         """
@@ -550,16 +569,6 @@ class Game(object):
 
             # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
-
-
-
-def runSimulation(game):
-
-    # start animation
-    anim = visualize_rush_lepps.RushVisualization(game, 500)
-
-    # stop animation when done
-    anim.done()
 
 def loadDataset(filename, cars):
     with open(filename, 'rb') as csvfile:
