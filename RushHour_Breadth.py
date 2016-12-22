@@ -12,6 +12,8 @@ import pylab
 import math
 import Queue as QueueClass
 import copy
+import csv
+import sys
 
 class Car(object):
 
@@ -559,31 +561,30 @@ def runSimulation(game):
     # stop animation when done
     anim.done()
 
-car1 = Car(1, 4, 2, "H", 1)
-car2 = Car(0, 0, 2, "V", 2)
-car3 = Car(0, 3, 2, "H", 3)
-car4 = Car(0, 4, 2, "V", 4)
-car5 = Car(3, 4, 2, "V", 5)
-car6 = Car(0, 6, 2, "H", 6)
-car7 = Car(3, 6, 2, "V", 7)
-car8 = Car(4, 6, 2, "H", 8)
-car9 = Car(0, 7, 2, "V", 9)
-car10 = Car(4, 7, 2, "V", 10)
-car11 = Car(5, 8, 2, "H", 11)
-car12 = Car(7, 8, 2, "H", 12)
-car13 = Car(1, 0, 3, "H", 13)
-car14 = Car(5, 0, 3, "V", 14)
-car15 = Car(3, 1, 3, "V", 15)
-car16 = Car(6, 1, 3, "H", 16)
-car17 = Car(8, 2, 3, "V", 17)
-car18 = Car(5, 3, 3, "H", 18)
-car19 = Car(2, 5, 3, "V", 19)
-car20 = Car(5, 5, 3, "H", 20)
-car21 = Car(8, 5, 3, "V", 21)
-car22 = Car(1, 8, 3, "H", 22)
+def loadDataset(filename, cars):
+    with open(filename, 'rb') as csvfile:
+        lines = csv.reader(csvfile)
+        dataset = list(lines)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
+        dimension = dataset[0][0]
+        for carLine in dataset[1:]:
+            car = Car(int(carLine[0]), int(carLine[1]), int(carLine[2]), carLine[3], int(carLine[4]))
+            cars.append(car)
+        return int(dimension)
 
-game = Game(9, cars)
-game.deque()
-runSimulation(game)
+
+if (len(sys.argv) == 3):
+    cars = []
+    filename = str(sys.argv[1])
+    dimension = loadDataset(filename, cars)
+    game = Game(dimension, cars)
+    game.deque()
+    game.writeFile(str(sys.argv[2]))
+elif (len(sys.argv) != 2):
+    print('Error, usage: program.py boardfile.csv')
+else:
+    cars = []
+    filename = str(sys.argv[1])
+    dimension = loadDataset(filename, cars)
+    game = Game(dimension, cars)
+    game.deque()

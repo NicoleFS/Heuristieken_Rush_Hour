@@ -1,32 +1,37 @@
 import numpy as np
 import visualize_path
+import csv
+import sys
 
-path = open('path_board1.txt')
+if (len(sys.argv) != 2):
+    print('Error, usage: Pathmaker.py pathfile.txt')
+else:
 
-lines = []
+    path = open(sys.argv[1])
 
-for line in path:
-    line = line.strip("\n")
-    line = line.split(" ")
-    #print line
-    lines.append(line)
+    lines = []
 
-boards = []
+    for line in path:
+        line = line.strip("\n")
+        line = line.split(" ")
+        lines.append(line)
 
-y = 0
+    boards = []
 
-for j in range((len(lines)/len(line))):
-    board = []
-    x = len(line) * (j+1)
-    for i in range(y, x):
-        board.append(lines[i])
-    board = np.vstack(board)
-    board = np.array(board, dtype=int)
-    boards.append(board)
-    print board
-    y = x
+    y = 0
 
-simulator = visualize_path.RushVisualization(boards, 6, 500, 0.05)
-simulator.done()
+    for j in range((len(lines)/len(line))):
+        board = []
+        x = len(line) * (j+1)
+        for i in range(y, x):
+            board.append(lines[i])
+        board = np.vstack(board)
+        board = np.array(board, dtype=int)
+        boards.append(board)
+        print board
+        y = x
+
+    simulator = visualize_path.RushVisualization(boards, 6, 500, 0.3)
+    simulator.done()
 
 
