@@ -7,7 +7,6 @@
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
-import visualize_rush
 import pylab
 import math
 import Queue as QueueClass
@@ -90,9 +89,6 @@ class Game(object):
 
         # create a start state to check for the end of the path
         self.start_state = start
-
-        self.preQueueList = []
-
 
     def addCarToGrid(self, car):
         """
@@ -346,6 +342,7 @@ class Game(object):
         """
         Creates a queueItem with the current parameters and puts it in the priority queue
         """
+
         # call calculateCost to return the priority
         self.priority = self.calculateCost(car, gridstring)
 
@@ -354,19 +351,6 @@ class Game(object):
 
         # put the queueItem in the queue
         self.queue.put(queueItem)
-
-    def pruneCost(self):
-
-        priorityList = []
-
-        for item in self.queue.queue:
-            priorityList.append(item.priority)
-
-        boundary = (min(priorityList) + max(priorityList))*0.5
-
-        for item in self.queue.queue:
-            if item.priority >= boundary:
-                self.queue.get(item)
 
     def checkMove(self):
 
@@ -396,7 +380,7 @@ class Game(object):
                 hash += ","
         return hash
 
-    def addToPath(self, car, parentString, childString):
+    def addToPath(self, car, parentString):
 
         """
         Links parent board with their child board in dictionaries children and path.
@@ -405,18 +389,16 @@ class Game(object):
         """
 
         # create and set variable to current state as string
-        # child_string = self.gridToString()
+        child_string = self.gridToString()
 
         # set value of child_string key to parentString in path dictionary
-        self.path[childString] = parentString
+        self.path[child_string] = parentString
 
         # set number of moves paired with child state to number of moves from parent state + 1
-        self.moves[childString] = 1 + self.moves[parentString]
+        self.moves[child_string] = 1 + self.moves[parentString]
 
         # create a queueItem and put this in the queue
-        self.putinQueue(car, childString)
-
-        # self.pruneCost()
+        self.putinQueue(car, child_string)
 
     def queueAllPossibleMoves(self):
 
@@ -429,7 +411,6 @@ class Game(object):
 
             # set parent_string to the string of the current board state
             parent_string = self.gridToString()
-
 
             # iterate through all the cars in self.cars and check for each direction if a move is possible
             for car in self.cars:
@@ -449,20 +430,8 @@ class Game(object):
                     # if the length of the set has changed after a move
                     if a != b:
 
-                        child_string = self.gridToString()
-
                         # call addToPath
-                        self.addToPath(car, parent_string, child_string)
-
-                        #current_cost = self.calculateCost(car, child_string)
-
-                        #queueItem = PQueueItem(current_cost, copy.deepcopy(self.cars), self.grid.copy())
-
-                        # self.preQueueList.append(queueItem)
-
-                        # put in queue verwijderen uit addtopath
-                        # calculate priority + make queueItem
-                        # preQueueList.append( ^ wat daar gemaakt is)
+                        self.addToPath(car, parent_string)
 
                     #reset move
                     self.moveDown(car)
@@ -473,10 +442,7 @@ class Game(object):
                     self.moveDown(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        child_string = self.gridToString()
-
-                        # call addToPath
-                        self.addToPath(car, parent_string, child_string)
+                        self.addToPath(car, parent_string)
                     self.moveUp(car)
 
                 # do the same as for moving up
@@ -485,10 +451,7 @@ class Game(object):
                     self.moveRight(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        child_string = self.gridToString()
-
-                        # call addToPath
-                        self.addToPath(car, parent_string, child_string)
+                        self.addToPath(car, parent_string)
 
 
                         # check if winning position has been reached in this state
@@ -503,10 +466,7 @@ class Game(object):
                     self.moveLeft(car)
                     b = Game.checkMove(self)
                     if a != b:
-                        child_string = self.gridToString()
-
-                        # call addToPath
-                        self.addToPath(car, parent_string, child_string)
+                        self.addToPath(car, parent_string)
                     self.moveRight(car)
 
     def makeBestPath(self):
@@ -576,11 +536,12 @@ class Game(object):
             # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
 
+    def writeFile(self, filename):
         # Generate some test data
         data = self.all_boards_path
 
         # Write the array to disk
-        with file('path_board6.txt', 'w') as outfile:
+        with file(filename, 'w') as outfile:
             # I'm writing a header here just for the sake of readability
             # Any line starting with "#" will be ignored by numpy.loadtxt
             # outfile.write('# Array shape: {0}\n'.format(self.dimension))
@@ -595,7 +556,7 @@ class Game(object):
                 np.savetxt(outfile, data_slice, fmt='%d')
 
                 # Writing out a break to indicate different slices...
-                # outfile.write('\n')
+                #outfile.write('\n')
 
     def deque(self):
 
@@ -609,7 +570,6 @@ class Game(object):
         startTime = time.clock()
 
         print "Starting grid:\n"
-        print "250 it. 40proc."
         print self.grid.T
         print "\n"
 
@@ -634,9 +594,6 @@ class Game(object):
             # add one to the iterations
             iteratrions += 1
 
-            if iteratrions % 250 == 0:
-                self.pruneCost()
-
         # calculate duration of the algorithm
         timeDuration = time.clock() - startTime
 
@@ -649,46 +606,18 @@ class Game(object):
         # save the path to the best solution by calling makeBestPath
         self.makeBestPath()
 
-def runSimulation(game):
+car1 = Car(3, 2, 2, "H", 1)
+car2 = Car(2, 0, 3, "V", 2)
+car3 = Car(3, 0, 2, "H", 3)
+car4 = Car(5, 0, 3, "V", 4)
+car5 = Car(3, 3, 3, "V", 5)
+car6 = Car(4, 3, 2, "H", 6)
+car7 = Car(0, 4, 2, "V", 7)
+car8 = Car(1, 4, 2, "H", 8)
+car9 = Car(4, 5, 2, "H", 9)
 
-    #Starts animation.
-    anim = visualize_rush.RushVisualization(game, 500)
-
-    #Stop animation when done.
-    anim.done()
-
-car1 = Car(0, 4, 2, "H", 1)
-car2 = Car(0, 0, 2, "H", 2)
-car3 = Car(2, 0, 2, "H", 3)
-car4 = Car(4, 0, 2, "V", 4)
-car5 = Car(7, 0, 2, "V", 5)
-car6 = Car(0, 1, 2, "V", 6)
-car7 = Car(5, 1, 2, "H", 7)
-car8 = Car(2, 2, 2, "H", 8)
-car9 = Car(4, 2, 2, "V", 9)
-car10 = Car(5, 2, 2, "V", 10)
-car11 = Car(7, 2, 2, "H", 11)
-car12 = Car(2, 3, 2, "V", 12)
-car13 = Car(1, 5, 2, "V", 13)
-car14 = Car(4, 5, 2, "H", 14)
-car15 = Car(6, 5, 2, "H", 15)
-car16 = Car(2, 6, 2, "H", 16)
-car17 = Car(2, 7, 2, "H", 17)
-car18 = Car(5, 7, 2, "H", 18)
-car19 = Car(1, 1, 3, "H", 19)
-car20 = Car(3, 3, 3, "V", 20)
-car21 = Car(6, 3, 3, "H", 21)
-car22 = Car(8, 5, 3, "V", 22)
-car23 = Car(0, 6, 3, "V", 23)
-car24 = Car(4, 6, 3, "V", 24)
-car25 = Car(5, 6, 3, "H", 25)
-car26 = Car(1, 8, 3, "H", 26)
-
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26]
-
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
 print "Starting"
-game = Game(9, cars)
+game = Game(6, cars)
 game.deque()
-
-runSimulation(game)

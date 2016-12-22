@@ -7,7 +7,6 @@
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
-import visualize_rush_lepps
 import pylab
 import math
 import Queue as QueueClass
@@ -326,7 +325,7 @@ class Game(object):
 
         # gives trucks priority
         if car.length == 3:
-            cost -= 100
+            cost -= 200
 
         # gives cars at the left of the board lower priority
         if car.x < self.dimension/2:
@@ -537,11 +536,12 @@ class Game(object):
             # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
 
+    def writeFile(self, filename):
         # Generate some test data
         data = self.all_boards_path
 
         # Write the array to disk
-        with file('path_board1.txt', 'w') as outfile:
+        with file(filename, 'w') as outfile:
             # I'm writing a header here just for the sake of readability
             # Any line starting with "#" will be ignored by numpy.loadtxt
             # outfile.write('# Array shape: {0}\n'.format(self.dimension))
@@ -606,14 +606,6 @@ class Game(object):
         # save the path to the best solution by calling makeBestPath
         self.makeBestPath()
 
-#def runSimulation(game):
-
-    # Starts animation.
-    #anim = visualize_rush_lepps.RushVisualization(game, 500)
-
-    # Stop animation when done.
-    #anim.done()
-
 car1 = Car(3, 2, 2, "H", 1)
 car2 = Car(2, 0, 3, "V", 2)
 car3 = Car(3, 0, 2, "H", 3)
@@ -626,10 +618,6 @@ car9 = Car(4, 5, 2, "H", 9)
 
 cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9]
 
-
-
 print "Starting"
 game = Game(6, cars)
 game.deque()
-
-#runSimulation(game)
