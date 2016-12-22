@@ -7,26 +7,20 @@
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
+import visualize_rush
 import pylab
 import math
 import Queue as QueueClass
 import copy
 import time
-import csv
-import sys
 
 class PQueueItem(object):
-    """
-    A class to make queue items for the priority queue
-    """
     def __init__(self, priority, cars, grid):
-        # each queue item should have a priority, cars and a grid
         self.priority = priority
         self.cars = cars
         self.grid = grid
         return
     def __cmp__(self, other):
-        # a priority queue should be able to compare priorities of the different items
         return cmp(self.priority, other.priority)
 
 class Car(object):
@@ -35,8 +29,8 @@ class Car(object):
     """
     def __init__(self, x, y, length, orientation, id):
         """
-        Initializes a car with a position with coordinates [x, y] on a board, with a given orientation, length and id.
-        :param x, y, length, orientation, id:
+        Initializes a car with a position with coordinates [x, y] on a board, with a given orientation and id.
+        :param x, y, length, orientation, id: All parameters are defined in a separate list.
         """
         self.x = x
         self.y = y
@@ -46,15 +40,12 @@ class Car(object):
 
 class Game(object):
     """
-    The state of the board (grid) which has cars is able to validate and make moves for the cars.
-    This class handles the algorithm by queueing and dequeing all possible moves, keeping track of
-    the moves and iterations and finding a solution for the board and reporting it.
+    The state of the board (grid), which changes after each movement of a car.
     """
     def __init__(self, dimension, cars):
         """
-        Initializes the given grid, fills it with cars and initializes some lists and dictionaries that
-        are needed to keep track of different variables during the game.
-        :param playboard, cars: The given empty grid.
+        Initializes the given grid and creates an empty array, to be filled with cars.
+        :param playboard: The given empty grid.
         """
         self.cars = cars
         self.dimension = dimension
@@ -69,14 +60,14 @@ class Game(object):
         # create a priority queue
         self.queue = QueueClass.PriorityQueue()
 
-        # set the priority of the starting board
+        # set the standard priority on 500
         self.priority = 500
 
         # create a queueItem with the start parameters and put it in the priority queue
         queueItem = PQueueItem(self.priority, copy.deepcopy(self.cars), self.grid.copy())
         self.queue.put(queueItem)
 
-        # create set to store board states, this will serve as archive
+        # create set to store board states
         self.stateSet = set()
         # create list to store single board state
         self.stateList = []
@@ -84,7 +75,8 @@ class Game(object):
         # create key of starting grid state
         start = self.gridToString()
 
-        # create dictionary of grid state (key) paired to corresponding number of performed moves (value)
+        # create dictionary of grid state (key) paired to
+        # corresponding number of performed moves (value)
         self.moves = {}
 
         # set start key value
@@ -99,32 +91,31 @@ class Game(object):
         # create a start state to check for the end of the path
         self.start_state = start
 
+        self.preQueueList = []
+
+
     def addCarToGrid(self, car):
         """
         Fill the board with a given car.
-        Checks all car properties and adds it to the grid accordingly.
+        Checks orientation and starting coordinates of car,
+        then fills in the rest according to the given length.
 
         :param car: object with given x, y, length, orientation and idcar
         :return: a filled grid.
         """
         x = car.x
         y = car.y
-
         # first check orientation of car
         if car.orientation == "H":
-
-            # places the car by its id on the grid if the tiles are empty
+            # then replace 0 with idcar integer for length of car
             for i in range(0, car.length):
                 if self.grid[x,y] == 0:
                     self.grid[x,y] = car.id
                     x += 1
-
-                # if the tile already contains another car the user is informed
                 else:
                     print car.id
                     print "Error, car cannot be placed on a tile that contains another car"
 
-        # same procedure for vertical cars
         elif car.orientation == "V":
             for i in range(0, car.length):
                 if self.grid[x,y] == 0:
@@ -133,12 +124,13 @@ class Game(object):
                 else:
                     print car.id
                     print "Error, car cannot be placed on a tile that contains another car"
+                    # return self.grid
 
     def canMoveRight(self, car):
         """
         Checks if the location on the right of the car is within the grid and empty.
         :param car: Car object
-        :return: Boolean
+        :return: True or False
         """
 
         # if orientation is not horizontal, moving to the right is not possible
@@ -157,7 +149,7 @@ class Game(object):
         """
         Checks if the location on the left of the car is within the grid and empty.
         :param car: Car object
-        :return: Boolean
+        :return: True or False
         """
 
         # if orientation is not horizontal, moving to the left is not possible
@@ -176,7 +168,7 @@ class Game(object):
         """
         Checks if the location above the car is within the grid and empty.
         :param car: Car object
-        :return: Boolean
+        :return: True or False
         """
 
         # if orientation is not vertical, moving upwards is not possible
@@ -195,7 +187,7 @@ class Game(object):
         """
         Checks if the location underneath the car is within the grid and empty.
         :param car: Car object
-        :return: Boolean
+        :return: True or False
         """
 
         # if orientation is not vertical, moving downwards is not possible
@@ -214,7 +206,9 @@ class Game(object):
 
         """
         'Moves' a given car 1 place to the right on the grid.
-        :return: updated car and updated grid.
+        Replaces the 0 on the right side next to the car with integer idcar
+        and replaces the left side of the car with a 0.
+        :return: grid (with 1 moved car compared to previous state of grid).
         """
 
         # obtain given car out of list of cars
@@ -236,7 +230,9 @@ class Game(object):
 
         """
         'Moves' a given car 1 place to the left on the grid.
-        :return: updated car and updated grid.
+        Replaces the 0 on the left side next to the car with integer idcar
+        and replaces the right side of the car with a 0.
+        :return: grid (with 1 moved car compared to previous state of grid).
         """
 
         # obtain given car out of list of cars
@@ -258,7 +254,9 @@ class Game(object):
 
         """
         'Moves' a given car 1 place down on the grid.
-        :return: updated car and updated grid.
+        Replaces the 0 one place underneath the car with integer idcar
+        and replaces the top of the car with a 0.
+        :return: grid (with 1 moved car compared to previous state of grid).
         """
 
         # obtain given car out of list of cars
@@ -280,7 +278,9 @@ class Game(object):
 
         """
         'Moves' a given car 1 place up on the grid.
-        :return: updated car and updated grid.
+        Replaces the 0 one place above the car with integer idcar
+        and replaces the bottom of the car with a 0.
+        :return: grid (with 1 moved car compared to previous state of grid).
         """
 
         # obtain given car out of list of cars
@@ -301,9 +301,7 @@ class Game(object):
     def calculateCost(self, car, gridstring):
 
         """
-        Calculates the cost for a given car in order to set the priority for the queue.
-        Lower cost result in higher prioty as lowest valued entries are retrieved first
-        in a priority queue.
+        Calculates the cost for a given car in order to give it priority in the queue or not.
         """
 
         # initial cost for all cars
@@ -348,7 +346,6 @@ class Game(object):
         """
         Creates a queueItem with the current parameters and puts it in the priority queue
         """
-
         # call calculateCost to return the priority
         self.priority = self.calculateCost(car, gridstring)
 
@@ -359,23 +356,14 @@ class Game(object):
         self.queue.put(queueItem)
 
     def pruneCost(self):
-        """
-        To shrink the queue so it does not take up a huge amount of memory pruning is done, this means
-        that the "worst" options of possible children are removed from the queue.
-        :return:
-        """
 
-        #create a temporary list to store the priorities
         priorityList = []
 
-        # gets the priorities for all queue items and adds them to a list.
         for item in self.queue.queue:
             priorityList.append(item.priority)
 
-        # sets the boundry for the priority that must be achieved to stay in the queue
         boundary = (min(priorityList) + max(priorityList))*0.5
 
-        # if an item does not match up to the boundry it is removed from the queue
         for item in self.queue.queue:
             if item.priority >= boundary:
                 self.queue.get(item)
@@ -416,6 +404,9 @@ class Game(object):
         Adds 1 to the value of moves with child_string as key.
         """
 
+        # create and set variable to current state as string
+        # child_string = self.gridToString()
+
         # set value of child_string key to parentString in path dictionary
         self.path[childString] = parentString
 
@@ -424,6 +415,8 @@ class Game(object):
 
         # create a queueItem and put this in the queue
         self.putinQueue(car, childString)
+
+        # self.pruneCost()
 
     def queueAllPossibleMoves(self):
 
@@ -436,6 +429,7 @@ class Game(object):
 
             # set parent_string to the string of the current board state
             parent_string = self.gridToString()
+
 
             # iterate through all the cars in self.cars and check for each direction if a move is possible
             for car in self.cars:
@@ -457,45 +451,61 @@ class Game(object):
 
                         child_string = self.gridToString()
 
-                        # add this move to the path
+                        # call addToPath
                         self.addToPath(car, parent_string, child_string)
+
+                        #current_cost = self.calculateCost(car, child_string)
+
+                        #queueItem = PQueueItem(current_cost, copy.deepcopy(self.cars), self.grid.copy())
+
+                        # self.preQueueList.append(queueItem)
+
+                        # put in queue verwijderen uit addtopath
+                        # calculate priority + make queueItem
+                        # preQueueList.append( ^ wat daar gemaakt is)
 
                     #reset move
                     self.moveDown(car)
 
-                # do the same as for moving down
+                # do the same as for moving up
                 if self.canMoveDown(car):
                     a = Game.checkMove(self)
                     self.moveDown(car)
                     b = Game.checkMove(self)
                     if a != b:
                         child_string = self.gridToString()
+
+                        # call addToPath
                         self.addToPath(car, parent_string, child_string)
                     self.moveUp(car)
 
-                # do the same as for moving right
+                # do the same as for moving up
                 if self.canMoveRight(car):
                     a = Game.checkMove(self)
                     self.moveRight(car)
                     b = Game.checkMove(self)
                     if a != b:
                         child_string = self.gridToString()
+
+                        # call addToPath
                         self.addToPath(car, parent_string, child_string)
+
 
                         # check if winning position has been reached in this state
                         if self.grid[self.dimension - 1, self.cars[0].y] == 1:
-
                             # if winning state has been reached, exit the for loop
                             return False
                     self.moveLeft(car)
 
-                # do the same as for moving left
+                # do the same as for moving up
                 if Game.canMoveLeft(self, car):
                     a = Game.checkMove(self)
                     self.moveLeft(car)
                     b = Game.checkMove(self)
                     if a != b:
                         child_string = self.gridToString()
+
+                        # call addToPath
                         self.addToPath(car, parent_string, child_string)
                     self.moveRight(car)
 
@@ -566,13 +576,11 @@ class Game(object):
             # add this board to the list of all the boards in the path
             self.all_boards_path.append(board_path)
 
-    def writeFile(self, filename):
-
         # Generate some test data
         data = self.all_boards_path
 
         # Write the array to disk
-        with file(filename, 'w') as outfile:
+        with file('path_board6.txt', 'w') as outfile:
             # I'm writing a header here just for the sake of readability
             # Any line starting with "#" will be ignored by numpy.loadtxt
             # outfile.write('# Array shape: {0}\n'.format(self.dimension))
@@ -586,6 +594,9 @@ class Game(object):
                 # with 2 decimal places.
                 np.savetxt(outfile, data_slice, fmt='%d')
 
+                # Writing out a break to indicate different slices...
+                # outfile.write('\n')
+
     def deque(self):
 
         """
@@ -597,14 +608,13 @@ class Game(object):
         # start time of the algorithm
         startTime = time.clock()
 
-        # prints some starting stats of the game
         print "Starting grid:\n"
-        print "100 it. 50proc."
+        print "250 it. 40proc."
         print self.grid.T
         print "\n"
 
         # set iteration to zero
-        iterations = 0
+        iteratrions = 0
 
         # while the red car is not on the winning position
         while self.grid[self.dimension - 1, self.cars[0].y] != 1:
@@ -622,48 +632,63 @@ class Game(object):
             self.queueAllPossibleMoves()
 
             # add one to the iterations
-            iterations += 1
+            iteratrions += 1
 
-            if iterations % 100 == 0:
+            if iteratrions % 250 == 0:
                 self.pruneCost()
 
         # calculate duration of the algorithm
         timeDuration = time.clock() - startTime
 
-        # prints an end report with the stats
         print "End of loop"
         print self.grid.T
         print "Number of moves needed to finish game: ", self.moves[self.gridToString()]
-        print "finished in", iterations, "iterations"
+        print "finished in", iteratrions, "iterations"
         print timeDuration
 
         # save the path to the best solution by calling makeBestPath
         self.makeBestPath()
 
-def loadDataset(filename, cars):
-    with open(filename, 'rb') as csvfile:
-        lines = csv.reader(csvfile)
-        dataset = list(lines)
+def runSimulation(game):
 
-        dimension = dataset[0][0]
-        for carLine in dataset[1:]:
-            car = Car(int(carLine[0]), int(carLine[1]), int(carLine[2]), carLine[3], int(carLine[4]))
-            cars.append(car)
-        return int(dimension)
+    #Starts animation.
+    anim = visualize_rush.RushVisualization(game, 500)
+
+    #Stop animation when done.
+    anim.done()
+
+car1 = Car(0, 4, 2, "H", 1)
+car2 = Car(0, 0, 2, "H", 2)
+car3 = Car(2, 0, 2, "H", 3)
+car4 = Car(4, 0, 2, "V", 4)
+car5 = Car(7, 0, 2, "V", 5)
+car6 = Car(0, 1, 2, "V", 6)
+car7 = Car(5, 1, 2, "H", 7)
+car8 = Car(2, 2, 2, "H", 8)
+car9 = Car(4, 2, 2, "V", 9)
+car10 = Car(5, 2, 2, "V", 10)
+car11 = Car(7, 2, 2, "H", 11)
+car12 = Car(2, 3, 2, "V", 12)
+car13 = Car(1, 5, 2, "V", 13)
+car14 = Car(4, 5, 2, "H", 14)
+car15 = Car(6, 5, 2, "H", 15)
+car16 = Car(2, 6, 2, "H", 16)
+car17 = Car(2, 7, 2, "H", 17)
+car18 = Car(5, 7, 2, "H", 18)
+car19 = Car(1, 1, 3, "H", 19)
+car20 = Car(3, 3, 3, "V", 20)
+car21 = Car(6, 3, 3, "H", 21)
+car22 = Car(8, 5, 3, "V", 22)
+car23 = Car(0, 6, 3, "V", 23)
+car24 = Car(4, 6, 3, "V", 24)
+car25 = Car(5, 6, 3, "H", 25)
+car26 = Car(1, 8, 3, "H", 26)
+
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26]
 
 
-if (len(sys.argv) == 3):
-    cars = []
-    filename = str(sys.argv[1])
-    dimension = loadDataset(filename, cars)
-    game = Game(dimension, cars)
-    game.deque()
-    game.writeFile(str(sys.argv[2]))
-elif (len(sys.argv) != 2):
-    print('Error, usage: program.py boardfile.csv')
-else:
-    cars = []
-    filename = str(sys.argv[1])
-    dimension = loadDataset(filename, cars)
-    game = Game(dimension, cars)
-    game.deque()
+print "Starting"
+game = Game(9, cars)
+game.deque()
+
+runSimulation(game)

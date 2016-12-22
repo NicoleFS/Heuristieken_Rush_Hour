@@ -586,6 +586,9 @@ class Game(object):
                 # with 2 decimal places.
                 np.savetxt(outfile, data_slice, fmt='%d')
 
+                # Writing out a break to indicate different slices...
+                # outfile.write('\n')
+
     def deque(self):
 
         """

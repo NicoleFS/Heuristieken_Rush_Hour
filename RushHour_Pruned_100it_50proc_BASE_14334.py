@@ -12,8 +12,6 @@ import math
 import Queue as QueueClass
 import copy
 import time
-import csv
-import sys
 
 class PQueueItem(object):
     """
@@ -586,6 +584,9 @@ class Game(object):
                 # with 2 decimal places.
                 np.savetxt(outfile, data_slice, fmt='%d')
 
+                # Writing out a break to indicate different slices...
+                # outfile.write('\n')
+
     def deque(self):
 
         """
@@ -640,30 +641,23 @@ class Game(object):
         # save the path to the best solution by calling makeBestPath
         self.makeBestPath()
 
-def loadDataset(filename, cars):
-    with open(filename, 'rb') as csvfile:
-        lines = csv.reader(csvfile)
-        dataset = list(lines)
 
-        dimension = dataset[0][0]
-        for carLine in dataset[1:]:
-            car = Car(int(carLine[0]), int(carLine[1]), int(carLine[2]), carLine[3], int(carLine[4]))
-            cars.append(car)
-        return int(dimension)
+car1 = Car(2, 2, 2, "H", 1)
+car2 = Car(2, 0, 2, "H", 2)
+car3 = Car(4, 0, 2, "H", 3)
+car4 = Car(1, 1, 2, "H", 4)
+car5 = Car(3, 1, 2, "H", 5)
+car6 = Car(4, 2, 2, "V", 6)
+car7 = Car(0, 3, 2, "H", 7)
+car8 = Car(2, 3, 2, "H", 8)
+car9 = Car(0, 4, 2, "V", 9)
+car10 = Car(3, 4, 2, "V", 10)
+car11 = Car(4, 4, 2, "H", 11)
+car12 = Car(4, 5, 2, "H", 12)
+car13 = Car(5, 1, 3, "V", 13)
 
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13]
 
-if (len(sys.argv) == 3):
-    cars = []
-    filename = str(sys.argv[1])
-    dimension = loadDataset(filename, cars)
-    game = Game(dimension, cars)
-    game.deque()
-    game.writeFile(str(sys.argv[2]))
-elif (len(sys.argv) != 2):
-    print('Error, usage: program.py boardfile.csv')
-else:
-    cars = []
-    filename = str(sys.argv[1])
-    dimension = loadDataset(filename, cars)
-    game = Game(dimension, cars)
-    game.deque()
+print "Starting"
+game = Game(6, cars)
+game.deque()
