@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pathmaker.py" afterPath="$PROJECT_DIR$/Pathmaker.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_AStar.py" afterPath="$PROJECT_DIR$/RushHour_AStar.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Breadth.py" afterPath="$PROJECT_DIR$/RushHour_Breadth.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Pruned_100it_50proc.py" afterPath="$PROJECT_DIR$/RushHour_Pruned_100it_50proc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py" afterPath="$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py" />
     </list>
     <ignored path="Heuristieken_Rush_Hour.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,12 +34,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pathmaker.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Pathmaker.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Pathmaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-              <folding />
+            <state relative-caret-position="344">
+              <caret line="49" column="75" selection-start-line="49" selection-start-column="75" selection-end-line="49" selection-end-column="75" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -121,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RushHour_Pruned_250it_50proc.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RushHour_Pruned_250it_50proc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="704">
@@ -155,11 +153,11 @@
         <option value="$PROJECT_DIR$/RushHour_AStar1.py" />
         <option value="$PROJECT_DIR$/visualize_path.py" />
         <option value="$PROJECT_DIR$/RushHour_ASter2.py" />
-        <option value="$PROJECT_DIR$/Pathmaker.py" />
         <option value="$PROJECT_DIR$/RushHour_AStar.py" />
         <option value="$PROJECT_DIR$/RushHour_Breadth.py" />
         <option value="$PROJECT_DIR$/RushHour_Pruned_100it_50proc.py" />
         <option value="$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py" />
+        <option value="$PROJECT_DIR$/Pathmaker.py" />
       </list>
     </option>
   </component>
@@ -556,7 +554,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -700,14 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Pathmaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RushHour_AStar.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
@@ -780,6 +772,16 @@
         <state relative-caret-position="704">
           <caret line="687" column="16" selection-start-line="687" selection-start-column="16" selection-end-line="687" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pathmaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="49" column="75" selection-start-line="49" selection-start-column="75" selection-end-line="49" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
