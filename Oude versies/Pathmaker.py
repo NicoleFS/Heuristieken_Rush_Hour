@@ -1,5 +1,4 @@
 import numpy as np
-import visualize_path
 
 path = open('path_board1.txt')
 
@@ -26,7 +25,9 @@ for j in range((len(lines)/len(line))):
     print board
     y = x
 
-simulator = visualize_path.RushVisualization(boards, 6, 500, 0.05)
-simulator.done()
+# for item in boards:
+    # run the simulation
+
+
 
 
