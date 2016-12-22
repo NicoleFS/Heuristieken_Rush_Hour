@@ -362,7 +362,7 @@ class Game(object):
         for item in self.queue.queue:
             priorityList.append(item.priority)
 
-        boundary = (min(priorityList) + max(priorityList))*0.4
+        boundary = (min(priorityList) + max(priorityList))*0.5
 
         for item in self.queue.queue:
             if item.priority >= boundary:
@@ -580,7 +580,7 @@ class Game(object):
         data = self.all_boards_path
 
         # Write the array to disk
-        with file('path_board3.txt', 'w') as outfile:
+        with file('path_board6.txt', 'w') as outfile:
             # I'm writing a header here just for the sake of readability
             # Any line starting with "#" will be ignored by numpy.loadtxt
             # outfile.write('# Array shape: {0}\n'.format(self.dimension))
@@ -595,7 +595,7 @@ class Game(object):
                 np.savetxt(outfile, data_slice, fmt='%d')
 
                 # Writing out a break to indicate different slices...
-                outfile.write('\n')
+                # outfile.write('\n')
 
     def deque(self):
 
@@ -657,30 +657,34 @@ def runSimulation(game):
     #Stop animation when done.
     anim.done()
 
-car1 = Car(1, 4, 2, "H", 1)
-car2 = Car(0, 0, 2, "V", 2)
-car3 = Car(0, 3, 2, "H", 3)
-car4 = Car(0, 4, 2, "V", 4)
-car5 = Car(3, 4, 2, "V", 5)
-car6 = Car(0, 6, 2, "H", 6)
-car7 = Car(3, 6, 2, "V", 7)
-car8 = Car(4, 6, 2, "H", 8)
-car9 = Car(0, 7, 2, "V", 9)
-car10 = Car(4, 7, 2, "V", 10)
-car11 = Car(5, 8, 2, "H", 11)
-car12 = Car(7, 8, 2, "H", 12)
-car13 = Car(1, 0, 3, "H", 13)
-car14 = Car(5, 0, 3, "V", 14)
-car15 = Car(3, 1, 3, "V", 15)
-car16 = Car(6, 1, 3, "H", 16)
-car17 = Car(8, 2, 3, "V", 17)
-car18 = Car(5, 3, 3, "H", 18)
-car19 = Car(2, 5, 3, "V", 19)
-car20 = Car(5, 5, 3, "H", 20)
-car21 = Car(8, 5, 3, "V", 21)
-car22 = Car(1, 8, 3, "H", 22)
+car1 = Car(0, 4, 2, "H", 1)
+car2 = Car(0, 0, 2, "H", 2)
+car3 = Car(2, 0, 2, "H", 3)
+car4 = Car(4, 0, 2, "V", 4)
+car5 = Car(7, 0, 2, "V", 5)
+car6 = Car(0, 1, 2, "V", 6)
+car7 = Car(5, 1, 2, "H", 7)
+car8 = Car(2, 2, 2, "H", 8)
+car9 = Car(4, 2, 2, "V", 9)
+car10 = Car(5, 2, 2, "V", 10)
+car11 = Car(7, 2, 2, "H", 11)
+car12 = Car(2, 3, 2, "V", 12)
+car13 = Car(1, 5, 2, "V", 13)
+car14 = Car(4, 5, 2, "H", 14)
+car15 = Car(6, 5, 2, "H", 15)
+car16 = Car(2, 6, 2, "H", 16)
+car17 = Car(2, 7, 2, "H", 17)
+car18 = Car(5, 7, 2, "H", 18)
+car19 = Car(1, 1, 3, "H", 19)
+car20 = Car(3, 3, 3, "V", 20)
+car21 = Car(6, 3, 3, "H", 21)
+car22 = Car(8, 5, 3, "V", 22)
+car23 = Car(0, 6, 3, "V", 23)
+car24 = Car(4, 6, 3, "V", 24)
+car25 = Car(5, 6, 3, "H", 25)
+car26 = Car(1, 8, 3, "H", 26)
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22]
+cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20, car21, car22, car23, car24, car25, car26]
 
 
 print "Starting"
