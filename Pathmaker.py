@@ -3,11 +3,12 @@ import visualize_path
 import csv
 import sys
 
-if (len(sys.argv) != 2):
-    print('Error, usage: Pathmaker.py pathfile.txt')
+if (len(sys.argv) != 3):
+    print('Error, usage: Pathmaker.py pathfile.txt speed')
 else:
 
     path = open(sys.argv[1])
+    speed = float(sys.argv[2])
 
     lines = []
 
@@ -28,10 +29,9 @@ else:
         board = np.vstack(board)
         board = np.array(board, dtype=int)
         boards.append(board)
-        print board
         y = x
 
-    simulator = visualize_path.RushVisualization(boards, 6, 500, 0.3)
+    simulator = visualize_path.RushVisualization(boards, len(line), 500, speed)
     simulator.done()
 
 

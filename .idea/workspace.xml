@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5b6c6af-7194-4eeb-886c-6ed33fae1a99" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_AStar1.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RushHour_ASter2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/path_board6.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RushHour_Breadth.py" afterPath="$PROJECT_DIR$/RushHour_Breadth.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pathmaker.py" afterPath="$PROJECT_DIR$/Pathmaker.py" />
     </list>
     <ignored path="Heuristieken_Rush_Hour.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,84 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RushHour_Breadth.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RushHour_Breadth.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="441" column="0" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
-              <folding>
-                <element signature="e#383#961#0" expanded="false" />
-                <element signature="e#599#961#0" expanded="false" />
-                <element signature="e#1376#2850#0" expanded="false" />
-                <element signature="e#2894#4116#0" expanded="false" />
-                <element signature="e#4160#4779#0" expanded="false" />
-                <element signature="e#4822#5400#0" expanded="false" />
-                <element signature="e#5441#5994#0" expanded="false" />
-                <element signature="e#6037#6638#0" expanded="false" />
-                <element signature="e#6681#7410#0" expanded="false" />
-                <element signature="e#7452#8192#0" expanded="false" />
-                <element signature="e#8234#8942#0" expanded="false" />
-                <element signature="e#8982#9694#0" expanded="false" />
-                <element signature="e#9731#9966#0" expanded="false" />
-                <element signature="e#10005#10533#0" expanded="false" />
-                <element signature="e#10569#11093#0" expanded="false" />
-                <element signature="e#11143#11915#0" expanded="false" />
-                <element signature="e#11963#14601#0" expanded="false" />
-                <element signature="e#14647#15446#0" expanded="false" />
-                <element signature="e#15478#16928#0" expanded="false" />
-                <element signature="e#16967#19225#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RushHour_Pruned_100it_50proc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RushHour_Pruned_100it_50proc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="586" column="57" selection-start-line="568" selection-start-column="4" selection-end-line="586" selection-end-column="57" />
-              <folding>
-                <element signature="e#376#819#0" expanded="false" />
-                <element signature="e#844#1273#0" expanded="false" />
-                <element signature="e#1299#1591#1" expanded="false" />
-                <element signature="e#1641#3354#0" expanded="false" />
-                <element signature="e#3397#4583#0" expanded="false" />
-                <element signature="e#4626#5239#0" expanded="false" />
-                <element signature="e#5281#5853#0" expanded="false" />
-                <element signature="e#5893#6440#0" expanded="false" />
-                <element signature="e#6482#7077#0" expanded="false" />
-                <element signature="e#7120#7693#0" expanded="false" />
-                <element signature="e#7735#8309#0" expanded="false" />
-                <element signature="e#8351#8907#0" expanded="false" />
-                <element signature="e#8947#9506#0" expanded="false" />
-                <element signature="e#9563#10963#0" expanded="false" />
-                <element signature="e#11017#11504#0" expanded="false" />
-                <element signature="e#12389#12740#0" expanded="false" />
-                <element signature="e#12779#13307#0" expanded="false" />
-                <element signature="e#13375#13969#0" expanded="false" />
-                <element signature="e#14021#17029#0" expanded="false" />
-                <element signature="e#17068#19326#0" expanded="false" />
-                <element signature="e#20203#21868#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RushHour_Pruned_250it_50proc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="655" column="29" selection-start-line="645" selection-start-column="0" selection-end-line="655" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Pathmaker.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Pathmaker.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Pathmaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+            <state relative-caret-position="285">
+              <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -148,8 +73,8 @@
         <option value="$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py" />
         <option value="$PROJECT_DIR$/visualize_path.py" />
         <option value="$PROJECT_DIR$/RushHour_ASter2.py" />
-        <option value="$PROJECT_DIR$/Pathmaker.py" />
         <option value="$PROJECT_DIR$/RushHour_Breadth.py" />
+        <option value="$PROJECT_DIR$/Pathmaker.py" />
       </list>
     </option>
   </component>
@@ -198,6 +123,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Heuristieken_Rush_Hour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Heuristieken_Rush_Hour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Heuristieken_Rush_Hour" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paths" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -660,16 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visualize_path.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RushHour_Pruned_250it_50proc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -683,16 +612,6 @@
         <state relative-caret-position="194">
           <caret line="630" column="51" selection-start-line="629" selection-start-column="2" selection-end-line="630" selection-end-column="51" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pathmaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -728,7 +647,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RushHour_Breadth.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
+        <state relative-caret-position="-196">
           <caret line="441" column="0" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
           <folding>
             <element signature="e#383#961#0" expanded="false" />
@@ -751,6 +670,26 @@
             <element signature="e#14647#15446#0" expanded="false" />
             <element signature="e#15478#16928#0" expanded="false" />
             <element signature="e#16967#19225#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visualize_path.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pathmaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
